@@ -12,10 +12,10 @@ const BottomTab = createBottomTabNavigator()
 const AppNavigator = () => {
     return (
         <BottomTab.Navigator>
-            <BottomTab.Screen name="Home" component={HomeScreen} options={{header:() => <AppHeader />}} />
-            <BottomTab.Screen name="Library" component={LibraryScreen} options={{header:() => <AppHeader />}} />
-            <BottomTab.Screen name="Wish List" component={WishListScreen} options={{header:() => <AppHeader />}} />
-            <BottomTab.Screen name="Friends" component={FriendsScreen} options={{header:() => <AppHeader />}}/>
+            <BottomTab.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/>
+            <BottomTab.Screen name="Library" component={LibraryScreen} options={{headerShown:false}}/>
+            <BottomTab.Screen name="Wish List" component={WishListScreen} options={{headerShown:false}} />
+            <BottomTab.Screen name="Friends" component={FriendsScreen} options={{headerShown:false}} />
         </BottomTab.Navigator>
     )}
 
