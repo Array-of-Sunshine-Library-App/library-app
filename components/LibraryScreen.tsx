@@ -5,7 +5,6 @@ import MainBooksContainer from "./MainBooksContainer";
 const LibraryScreen = () => {
   return (
     <View>
-      <Text>Library Page</Text>
       <MainBooksContainer />
     </View>
   );
