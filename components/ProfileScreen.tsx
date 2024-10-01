@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, View, StyleSheet, ViewComponent } from 'react-native';
-import HomeScreen from './HomeScreen';
+import { Text, View } from 'react-native';
+
 
 const ProfileScreen = () => {
     
