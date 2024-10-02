@@ -1,20 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Dimensions, Image } from "react-native";
 
 type BookCardProps = {
+  key: number;
   isLoaded: boolean;
-  coverURL: string;
-  location: string;
-}
+  thumbnail: string;
+  page: string;
+};
 
-let booksPerRow = 4
+let booksPerRow = 4;
 
-const BookCard = ({ isLoaded, coverURL, location }:BookCardProps) => {
-  booksPerRow = (location === "explore") ? 3 : 4;
+const BookCard = ({ isLoaded, thumbnail, page }: BookCardProps) => {
+  const [cardWidth, setCardWidth] = useState(0);
+  const [cardHeight, setCardHeight] = useState(0);
+
+  useEffect(() => {
+    booksPerRow = page === "explore" ? 3 : 4;
+    const { width } = Dimensions.get("window");
+    setCardWidth(width / booksPerRow - 10);
+    setCardHeight((width / booksPerRow - 10) * 1.5);
+  }, [page]);
+
   return (
-    <View style={styles.card}>
+    <View style={[styles.card, { width: cardWidth, height: cardHeight }]}>
       {isLoaded ? (
-        <Image style={styles.image} source={{ uri: coverURL }} />
+        <Image style={styles.image} source={{ uri: thumbnail }} />
       ) : (
         <View style={styles.placeholder} />
       )}
@@ -22,14 +32,8 @@ const BookCard = ({ isLoaded, coverURL, location }:BookCardProps) => {
   );
 };
 
-const { width } = Dimensions.get("window");
-const cardWidth = width / booksPerRow - 10;
-const cardHeight = cardWidth * 1.5;
-
 const styles = StyleSheet.create({
   card: {
-    width: cardWidth,
-    height: cardHeight,
     margin: 5,
     borderRadius: 5,
     borderWidth: 1,
