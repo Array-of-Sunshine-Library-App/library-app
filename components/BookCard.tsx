@@ -1,7 +1,16 @@
 import React from "react";
 import { View, StyleSheet, Dimensions, Image } from "react-native";
 
-const BookCard = ({ isLoaded, coverURL }) => {
+type BookCardProps = {
+  isLoaded: boolean;
+  coverURL: string;
+  location: string;
+}
+
+let booksPerRow = 4
+
+const BookCard = ({ isLoaded, coverURL, location }:BookCardProps) => {
+  booksPerRow = (location === "explore") ? 3 : 4;
   return (
     <View style={styles.card}>
       {isLoaded ? (
@@ -14,7 +23,7 @@ const BookCard = ({ isLoaded, coverURL }) => {
 };
 
 const { width } = Dimensions.get("window");
-const cardWidth = width / 4 - 10;
+const cardWidth = width / booksPerRow - 10;
 const cardHeight = cardWidth * 1.5;
 
 const styles = StyleSheet.create({

@@ -1,12 +1,14 @@
 import React from "react";
-import { Text, View, StyleSheet, ViewComponent } from "react-native";
 import MainBooksContainer from "./MainBooksContainer";
+import FloatingAddButton from "./FloatingAddButton";
+import { View } from "react-native";
 
 const LibraryScreen = () => {
   return (
-    <View>
-      <MainBooksContainer />
-    </View>
+    <>
+    <MainBooksContainer location={"library"} />
+    <FloatingAddButton />
+    </>
   );
 };
 

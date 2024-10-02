@@ -4,15 +4,17 @@ import HomePage from "./components/HomeScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import AppNavigator from "./components/AppNavigator";
 import ProfileScreen from "./components/ProfileScreen";
-import { createStackNavigator } from "@react-navigation/stack";
+// import { createStackNavigator } from "@react-navigation/stack";
 import AppHeader from "./components/Header";
 
-const Stack = createStackNavigator();
+// const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <AppHeader />
+      <AppNavigator />
+      {/* <Stack.Navigator>
         <Stack.Screen
           name="Main"
           component={MainWithHeader}
@@ -23,19 +25,19 @@ export default function App() {
           component={ProfileScreen}
           options={{ headerShown: false }}
         />
-      </Stack.Navigator>
+      </Stack.Navigator> */}
     </NavigationContainer>
   );
 }
 
-function MainWithHeader() {
-  return (
-    <>
-      <AppHeader />
-      <AppNavigator />
-    </>
-  );
-}
+// function MainWithHeader() {
+//   return (
+//     <>
+//       <AppHeader />
+//       <AppNavigator />
+//     </>
+//   );
+// }
 
 const styles = StyleSheet.create({
   container: {
