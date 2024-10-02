@@ -1,14 +1,14 @@
 import React from 'react';
-import { Text, View, StyleSheet, ViewComponent } from 'react-native';
+import FloatingAddButton from './FloatingAddButton';
+import MainBooksContainer from './MainBooksContainer';
 
 const WishListScreen = () => {
     
     return (
-        <View>
-            <Text>
-                Wish List Page
-            </Text>
-        </View>
+        <>
+        <MainBooksContainer/>
+        <FloatingAddButton />
+        </>
     )
 }
 

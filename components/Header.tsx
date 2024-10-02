@@ -10,7 +10,7 @@ const AppHeader = () => {
         <Text style={styles.headerTitle}>App</Text>
         <Pressable
           style={styles.profilePressable}
-          onPress={() => navigation.navigate("ProfileScreen")}
+          onPress={() => navigation.navigate("Profile")}
         >
           <Text style={styles.pressText}>Profile</Text>
         </Pressable>
