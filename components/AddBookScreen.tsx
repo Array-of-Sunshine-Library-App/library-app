@@ -1,9 +1,17 @@
 import React from "react";
 import { Pressable, Text, View, StyleSheet } from "react-native";
 import BookBasicDetails from "./BookBasicDetails";
+import { useNavigation } from "@react-navigation/native";
 
 const AddBookScreen = ({ route }) => {
   const { book } = route.params;
+
+  const navigation = useNavigation();
+
+  const handleAddToLibrary = () => {
+    //post to library
+    navigation.navigate("My book details", { book });
+  };
 
   return (
     <View style={styles.page}>
@@ -13,7 +21,7 @@ const AddBookScreen = ({ route }) => {
         <Pressable style={styles.actionButton}>
           <Text style={styles.pressableText}>Add to Wishlist</Text>
         </Pressable>
-        <Pressable style={styles.actionButton}>
+        <Pressable style={styles.actionButton} onPress={handleAddToLibrary}>
           <Text style={styles.pressableText}>Add to Library</Text>
         </Pressable>
       </View>
