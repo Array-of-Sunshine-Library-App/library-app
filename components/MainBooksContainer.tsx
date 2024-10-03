@@ -22,15 +22,10 @@ const MainBooksContainer = ({
       <FlatList
         data={isLoaded ? books : Array(24).fill({})}
         renderItem={({ item, index }) => (
-          <BookCard
-            key={index}
-            isLoaded={isLoaded}
-            book={item}
-            page={page}
-          />
+          <BookCard key={index} isLoaded={isLoaded} book={item} page={page} />
         )}
         numColumns={page === "explore" ? 3 : 4}
-        ListHeaderComponent={<FilterBar />}
+        ListHeaderComponent={page === "explore" ? null : <FilterBar />}
       />
     </View>
   );

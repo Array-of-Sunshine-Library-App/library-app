@@ -1,13 +1,20 @@
 import { Text, View, StyleSheet, SafeAreaView, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const AppHeader = () => {
+const AppHeader = ({ returnTo }) => {
   const navigation = useNavigation();
 
   return (
     <SafeAreaView>
       <View style={styles.headerContainer}>
-        <Text style={styles.headerTitle}>App</Text>
+        <Pressable
+          style={[styles.profilePressable, { opacity: returnTo ? 1 : 0 }]}
+          pointerEvents={returnTo ? "auto" : "none"}
+          onPress={() => navigation.navigate(returnTo)}
+        >
+          <Text style={styles.pressText}>Back</Text>
+        </Pressable>
+        <Text style={styles.headerTitle}>Library App</Text>
         <Pressable
           style={styles.profilePressable}
           onPress={() => navigation.navigate("Profile")}

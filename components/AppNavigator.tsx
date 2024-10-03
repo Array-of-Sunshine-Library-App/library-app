@@ -30,7 +30,10 @@ const AppNavigator = () => {
       <BottomTab.Screen
         name="Add a book"
         component={AddBookScreen}
-        options={{ tabBarButton: () => null }}
+        options={{
+          tabBarButton: () => null,
+          header: () => <AppHeader returnTo={"Explore"} />,
+        }}
       />
     </BottomTab.Navigator>
   );
