@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Dimensions, Image } from "react-native";
+import { View, StyleSheet, Dimensions, Image, Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 type BookCardProps = {
   key: number;
   isLoaded: boolean;
-  thumbnail: string;
+  book: {
+    title: string;
+    authors?: any[];
+    description?: string;
+    thumbnail: string;
+  }
   page: string;
 };
 
 let booksPerRow = 4;
 
-const BookCard = ({ isLoaded, thumbnail, page }: BookCardProps) => {
+const BookCard = ({ isLoaded, book, page }: BookCardProps) => {
+  const navigation = useNavigation();
   const [cardWidth, setCardWidth] = useState(0);
   const [cardHeight, setCardHeight] = useState(0);
 
@@ -22,13 +29,15 @@ const BookCard = ({ isLoaded, thumbnail, page }: BookCardProps) => {
   }, [page]);
 
   return (
+      <Pressable onPress={page==="explore" && isLoaded ? () => navigation.navigate("Add a book", {book}) : null}>
     <View style={[styles.card, { width: cardWidth, height: cardHeight }]}>
       {isLoaded ? (
-        <Image style={styles.image} source={{ uri: thumbnail }} />
-      ) : (
-        <View style={styles.placeholder} />
-      )}
+          <Image style={styles.image} source={{ uri: book.thumbnail }} />
+        ) : (
+          <View style={styles.placeholder} />
+        )}
     </View>
+        </Pressable>
   );
 };
 
