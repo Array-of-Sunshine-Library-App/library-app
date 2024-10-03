@@ -39,7 +39,7 @@ const ExploreScreen = () => {
     <View>
       <ExploreSearchBar />
       <Text>hello!</Text>
-      <MainBooksContainer page={"explore"} books={books} isLoaded={isLoaded} />
+      {isLoaded ? <MainBooksContainer page={"explore"} books={books} isLoaded={isLoaded} /> : null }
     </View>
   );
 };

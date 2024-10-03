@@ -25,7 +25,7 @@ const MainBooksContainer = ({
           <BookCard
             key={index}
             isLoaded={isLoaded}
-            thumbnail={item?.thumbnail}
+            book={item}
             page={page}
           />
         )}

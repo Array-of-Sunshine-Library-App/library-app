@@ -7,6 +7,7 @@ import FriendsScreen from "./FriendsScreen";
 import ProfileScreen from "./ProfileScreen";
 import ExploreScreen from "./ExploreScreen";
 import AppHeader from "./AppHeader";
+import AddBookScreen from "./AddBookScreen";
 const BottomTab = createBottomTabNavigator();
 
 const AppNavigator = () => {
@@ -24,6 +25,11 @@ const AppNavigator = () => {
       <BottomTab.Screen
         name="Explore"
         component={ExploreScreen}
+        options={{ tabBarButton: () => null }}
+      />
+      <BottomTab.Screen
+        name="Add a book"
+        component={AddBookScreen}
         options={{ tabBarButton: () => null }}
       />
     </BottomTab.Navigator>
