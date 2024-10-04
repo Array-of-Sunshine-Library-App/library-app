@@ -10,6 +10,7 @@ import AppHeader from "./AppHeader";
 import AddBookScreen from "./AddBookScreen";
 import MyBookDetails from "./MyBookDetails";
 import MyBookProgress from "./MyBookProgress";
+import FriendScreen from "./FriendScreen";
 const BottomTab = createBottomTabNavigator();
 
 const AppNavigator = () => {
@@ -51,6 +52,14 @@ const AppNavigator = () => {
         options={{
           tabBarButton: () => null,
           header: () => <AppHeader returnTo={"Library"} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Friend page"
+        component={FriendScreen}
+        options={{
+          tabBarButton: () => null,
+          header: () => <AppHeader returnTo={"Friend List"} />,
         }}
       />
     </BottomTab.Navigator>
