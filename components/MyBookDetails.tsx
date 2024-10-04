@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   Pressable,
+  Modal,
 } from "react-native";
 import BookBasicDetails from "./BookBasicDetails";
 import { useNavigation } from "@react-navigation/native";
@@ -25,24 +26,38 @@ const MyBookDetails = ({ route }) => {
   const [offAppBorrower, setOffAppBorrower] = useState("");
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleSave = () => {
-    //patch book
-    console.log({
-      isOwned,
-      isPhysical,
-      isLendable,
-      isRead,
-      privateNotes,
-      offAppBorrower,
-      review,
-      rating,
-    });
-
-    //delete book from library - check
-
+    if (!isOwned && !isRead) {
+      setModalVisible(true)
+    } else {
+          //patch book
+          console.log({
+            isOwned,
+            isPhysical,
+            isLendable,
+            isRead,
+            privateNotes,
+            offAppBorrower,
+            review,
+            rating,
+          });
+    }
     navigation.navigate("My book progress");
   };
+
+  const handleDelete = () => {
+    //api call
+    setModalVisible(false)
+    navigation.navigate("Library");
+  }
+
+  const handleMoveToWishlist = () => {
+    //api call
+    setModalVisible(false)
+    navigation.navigate("Wish List");
+  }
 
   const stars = [1, 2, 3, 4, 5];
   const handleRating = (star: number) => {
@@ -51,6 +66,20 @@ const MyBookDetails = ({ route }) => {
 
   return (
     <View style={styles.container}>
+    <Modal style={styles.modal} animationType="none" visible={modalVisible} transparent={true}>
+      <TouchableOpacity style={styles.modalOverlay} onPress={() => setModalVisible(false)}/>
+      <View style={styles.modalContainer}>
+      <Pressable style={[styles.button,{backgroundColor: "green"}]} onPress={handleMoveToWishlist}>
+        <Text>Add this book to my wishlist</Text>
+      </Pressable>
+      <Pressable style={[styles.button,{backgroundColor: "red"}]} onPress={handleDelete}>
+        <Text>Delete this book from my library</Text>
+      </Pressable>
+      <Pressable style={[styles.button,{backgroundColor: "grey"}]} onPress={() => setModalVisible(false)}>
+        <Text>Cancel</Text>
+      </Pressable>
+      </View>
+    </Modal>
       <View style={styles.section}>
         <BookBasicDetails book={book} />
         <View style={styles.switchRow}>
@@ -175,6 +204,33 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
+
+  modal: {
+    flexGrow: 0,
+  },
+
+  modalContainer: {
+    position: "absolute",
+    bottom: 0,
+    width: "95%",
+    backgroundColor: "white",
+    padding: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    gap: 10,
+    shadowColor: "#000",
+    shadowOffset: {width: 0, height: -2},
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    elevation: 5,
+    alignSelf: "center",
+  },
+
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: "white",
+    opacity: 0.5,
+  }
 });
 
 export default MyBookDetails;
