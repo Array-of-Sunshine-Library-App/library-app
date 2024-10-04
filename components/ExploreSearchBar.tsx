@@ -1,18 +1,28 @@
-import React from 'react';
-import { Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { SearchBar } from "@rneui/themed";
 
 
-const ExploreSearchBar = () => {
+const ExploreSearchBar = ({searchQuery, setSearchQuery}) => {
+    const [searchBarValue, setSearchBarValue] = useState("");
     
+    const handleSubmit = () => {
+        let trimmedSearchQuery = searchBarValue.trim().replaceAll(" ","+").toLowerCase()
+        console.log(trimmedSearchQuery)
+        setSearchQuery(trimmedSearchQuery)
+}
+
     return (
         <View>
-            <SearchBar />
-            <Text>
-                ExploreSearchBar
-            </Text>
+            <SearchBar style={styles.searchBar} placeholder="Search for a book to add to your library" value={searchBarValue} onChangeText={setSearchBarValue} lightTheme={true} onSubmitEditing={handleSubmit}/>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    searchBar: {
+      color: "black"
+    }
+  });
 
 export default ExploreSearchBar

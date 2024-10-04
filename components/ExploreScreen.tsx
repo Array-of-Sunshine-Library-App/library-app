@@ -9,12 +9,13 @@ const ExploreScreen = () => {
   const [books, setBooks] = useState<any[]>([]);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
     const fetchBooks = async () => {
       try {
         const response = await axios.get(
-          `https://www.googleapis.com/books/v1/volumes?q=harry+potter&key=${API_KEY}`
+          `https://www.googleapis.com/books/v1/volumes?q=${searchQuery}&key=${API_KEY}`
         );
         const mappedBooks = response.data.items.map((item: any) => ({
           title: item.volumeInfo.title,
@@ -33,12 +34,11 @@ const ExploreScreen = () => {
     };
 
     fetchBooks();
-  }, []);
+  }, [searchQuery]);
 
   return (
     <View>
-      <ExploreSearchBar />
-      <Text>hello!</Text>
+      <ExploreSearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
       {isLoaded ? <MainBooksContainer page={"explore"} books={books} isLoaded={isLoaded} /> : null }
     </View>
   );
