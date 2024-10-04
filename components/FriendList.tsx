@@ -4,37 +4,37 @@ import FriendCard from "./FriendCard";
 
 const devUsers = [
   {
-    userID: 3,
-    name: "Josh Martin",
+    userID: 5,
+    name: "Harry Potter",
     readingStats: {
       booksRead: 411,
       totalPagesRead: 123308,
     },
   },
   {
-    userID: 4,
-    name: "Jackson",
+    userID: 6,
+    name: "Tim",
     readingStats: {
-      booksRead: 511,
+      booksRead: 11,
       totalPagesRead: 212308,
     },
   },
   {
-    userID: 4,
-    name: "Maria",
+    userID: 7,
+    name: "Mario",
     readingStats: {
-      booksRead: 511,
+      booksRead: 321,
       totalPagesRead: 212308,
     },
   },
 ];
 
-const FriendRequests = () => {
+const FriendList = () => {
   const [users, setUsers] = useState<any[]>(devUsers);
 
   return (
     <View>
-      <Text>Friend requests:</Text>
+      <Text>Your friends:</Text>
       <FlatList
         data={users}
         renderItem={({ item, index }) => (
@@ -52,4 +52,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FriendRequests;
+export default FriendList;
