@@ -43,8 +43,8 @@ const MyBookDetails = ({ route }) => {
             review,
             rating,
           });
+          navigation.navigate("My book progress", {book});
     }
-    navigation.navigate("My book progress");
   };
 
   const handleDelete = () => {
@@ -80,8 +80,8 @@ const MyBookDetails = ({ route }) => {
       </Pressable>
       </View>
     </Modal>
-      <View style={styles.section}>
         <BookBasicDetails book={book} />
+      <View style={styles.section}>
         <View style={styles.switchRow}>
           <Switch value={isOwned} onValueChange={setIsOwned} />
           <Text>I own this book</Text>
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   container: {
-    padding: 20,
+    padding: 15,
   },
   section: {
     marginVertical: 10,
