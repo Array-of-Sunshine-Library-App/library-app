@@ -9,6 +9,8 @@ const devUsers = [
     readingStats: {
       booksRead: 411,
       totalPagesRead: 123308,
+      booksLent: 5,
+      numberBooksBorrowed: 10,
     },
   },
   {
@@ -17,6 +19,8 @@ const devUsers = [
     readingStats: {
       booksRead: 11,
       totalPagesRead: 212308,
+      booksLent: 5,
+      numberBooksBorrowed: 4,
     },
   },
   {
@@ -25,6 +29,8 @@ const devUsers = [
     readingStats: {
       booksRead: 321,
       totalPagesRead: 212308,
+      booksLent: 1,
+      numberBooksBorrowed: 2,
     },
   },
 ];

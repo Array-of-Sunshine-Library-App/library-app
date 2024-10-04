@@ -9,22 +9,28 @@ const devUsers = [
     readingStats: {
       booksRead: 411,
       totalPagesRead: 123308,
+      booksLent: 0,
+      numberBooksBorrowed: 0,
     },
   },
   {
     userID: 4,
-    name: "Jackson",
+    name: "Jackson Greaves",
     readingStats: {
       booksRead: 511,
       totalPagesRead: 212308,
+      booksLent: 10,
+      numberBooksBorrowed: 11,
     },
   },
   {
     userID: 4,
-    name: "Maria",
+    name: "Carmen",
     readingStats: {
       booksRead: 511,
       totalPagesRead: 212308,
+      booksLent: 13,
+      numberBooksBorrowed: 12,
     },
   },
 ];
