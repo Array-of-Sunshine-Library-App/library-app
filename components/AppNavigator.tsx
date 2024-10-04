@@ -9,6 +9,7 @@ import ExploreScreen from "./ExploreScreen";
 import AppHeader from "./AppHeader";
 import AddBookScreen from "./AddBookScreen";
 import MyBookDetails from "./MyBookDetails";
+import MyBookProgress from "./MyBookProgress";
 const BottomTab = createBottomTabNavigator();
 
 const AppNavigator = () => {
@@ -41,7 +42,15 @@ const AppNavigator = () => {
         component={MyBookDetails}
         options={{
           tabBarButton: () => null,
-          header: () => <AppHeader returnTo={"My book progress"} />,
+          header: () => <AppHeader />,
+        }}
+      />
+      <BottomTab.Screen
+        name="My book progress"
+        component={MyBookProgress}
+        options={{
+          tabBarButton: () => null,
+          header: () => <AppHeader returnTo={"Library"} />,
         }}
       />
     </BottomTab.Navigator>

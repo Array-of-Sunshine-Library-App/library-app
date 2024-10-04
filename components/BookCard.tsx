@@ -29,7 +29,7 @@ const BookCard = ({ isLoaded, book, page }: BookCardProps) => {
   }, [page]);
 
   return (
-      <Pressable onPress={page==="explore" && isLoaded ? () => navigation.navigate("Add a book", {book}) : null}>
+      <Pressable onPress={isLoaded ? () => navigation.navigate(page === "explore" ? "Add a book" : "My book progress", {book}) : null}>
     <View style={[styles.card, { width: cardWidth, height: cardHeight }]}>
       {isLoaded ? (
           <Image style={styles.image} source={{ uri: book.thumbnail }} />
