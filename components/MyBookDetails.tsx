@@ -30,34 +30,34 @@ const MyBookDetails = ({ route }) => {
 
   const handleSave = () => {
     if (!isOwned && !isRead) {
-      setModalVisible(true)
+      setModalVisible(true);
     } else {
-          //patch book
-          console.log({
-            isOwned,
-            isPhysical,
-            isLendable,
-            isRead,
-            privateNotes,
-            offAppBorrower,
-            review,
-            rating,
-          });
-          navigation.navigate("My book progress", {book});
+      //patch book
+      console.log({
+        isOwned,
+        isPhysical,
+        isLendable,
+        isRead,
+        privateNotes,
+        offAppBorrower,
+        review,
+        rating,
+      });
+      navigation.navigate("My book progress", { book });
     }
   };
 
   const handleDelete = () => {
     //api call
-    setModalVisible(false)
+    setModalVisible(false);
     navigation.navigate("Library");
-  }
+  };
 
   const handleMoveToWishlist = () => {
     //api call
-    setModalVisible(false)
+    setModalVisible(false);
     navigation.navigate("Wish List");
-  }
+  };
 
   const stars = [1, 2, 3, 4, 5];
   const handleRating = (star: number) => {
@@ -66,21 +66,38 @@ const MyBookDetails = ({ route }) => {
 
   return (
     <View style={styles.container}>
-    <Modal style={styles.modal} animationType="none" visible={modalVisible} transparent={true}>
-      <TouchableOpacity style={styles.modalOverlay} onPress={() => setModalVisible(false)}/>
-      <View style={styles.modalContainer}>
-      <Pressable style={[styles.button,{backgroundColor: "green"}]} onPress={handleMoveToWishlist}>
-        <Text>Add this book to my wishlist</Text>
-      </Pressable>
-      <Pressable style={[styles.button,{backgroundColor: "red"}]} onPress={handleDelete}>
-        <Text>Delete this book from my library</Text>
-      </Pressable>
-      <Pressable style={[styles.button,{backgroundColor: "grey"}]} onPress={() => setModalVisible(false)}>
-        <Text>Cancel</Text>
-      </Pressable>
-      </View>
-    </Modal>
-        <BookBasicDetails book={book} />
+      <Modal
+        style={styles.modal}
+        animationType="none"
+        visible={modalVisible}
+        transparent={true}
+      >
+        <TouchableOpacity
+          style={styles.modalOverlay}
+          onPress={() => setModalVisible(false)}
+        />
+        <View style={styles.modalContainer}>
+          <Pressable
+            style={[styles.button, { backgroundColor: "green" }]}
+            onPress={handleMoveToWishlist}
+          >
+            <Text>Add this book to my wishlist</Text>
+          </Pressable>
+          <Pressable
+            style={[styles.button, { backgroundColor: "red" }]}
+            onPress={handleDelete}
+          >
+            <Text>Delete this book from my library</Text>
+          </Pressable>
+          <Pressable
+            style={[styles.button, { backgroundColor: "grey" }]}
+            onPress={() => setModalVisible(false)}
+          >
+            <Text>Cancel</Text>
+          </Pressable>
+        </View>
+      </Modal>
+      <BookBasicDetails book={book} />
       <View style={styles.section}>
         <View style={styles.switchRow}>
           <Switch value={isOwned} onValueChange={setIsOwned} />
@@ -140,8 +157,8 @@ const MyBookDetails = ({ route }) => {
                     style={styles.star}
                     source={
                       rating >= star
-                        ? require("../assets/star-filled.svg")
-                        : require("../assets/star-outline.svg")
+                        ? require("../assets/star-filled.png")
+                        : require("../assets/star-outline.png")
                     }
                   />
                 </TouchableOpacity>
@@ -219,7 +236,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     gap: 10,
     shadowColor: "#000",
-    shadowOffset: {width: 0, height: -2},
+    shadowOffset: { width: 0, height: -2 },
     shadowOpacity: 0.5,
     shadowRadius: 10,
     elevation: 5,
@@ -230,7 +247,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     opacity: 0.5,
-  }
+  },
 });
 
 export default MyBookDetails;
