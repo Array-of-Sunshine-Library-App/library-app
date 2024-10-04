@@ -1,15 +1,14 @@
 import React from 'react';
 import { Text, View, StyleSheet, ViewComponent } from 'react-native';
+import FriendSearchBar from './FriendSearchBar';
 
-const FriendsScreen = () => {
+const FriendListScreen = () => {
     
     return (
         <View>
-            <Text>
-                Friends Page
-            </Text>
+            <FriendSearchBar />
         </View>
     )
 }
 
-export default FriendsScreen
+export default FriendListScreen

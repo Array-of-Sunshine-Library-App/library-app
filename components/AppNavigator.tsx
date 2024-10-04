@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./HomeScreen";
 import LibraryScreen from "./LibraryScreen";
 import WishListScreen from "./WishListScreen";
-import FriendsScreen from "./FriendsScreen";
+import FriendListScreen from "./FriendListScreen";
 import ProfileScreen from "./ProfileScreen";
 import ExploreScreen from "./ExploreScreen";
 import AppHeader from "./AppHeader";
@@ -18,7 +18,7 @@ const AppNavigator = () => {
       <BottomTab.Screen name="Home" component={HomeScreen} />
       <BottomTab.Screen name="Library" component={LibraryScreen} />
       <BottomTab.Screen name="Wish List" component={WishListScreen} />
-      <BottomTab.Screen name="Friends" component={FriendsScreen} />
+      <BottomTab.Screen name="Friend List" component={FriendListScreen} />
       <BottomTab.Screen
         name="Profile"
         component={ProfileScreen}
