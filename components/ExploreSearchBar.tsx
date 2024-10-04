@@ -8,7 +8,6 @@ const ExploreSearchBar = ({searchQuery, setSearchQuery}) => {
     
     const handleSubmit = () => {
         let trimmedSearchQuery = searchBarValue.trim().replaceAll(" ","+").toLowerCase()
-        console.log(trimmedSearchQuery)
         setSearchQuery(trimmedSearchQuery)
 }
 
