@@ -38,8 +38,19 @@ const ExploreScreen = () => {
 
   return (
     <View>
-      <ExploreSearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
-      {isLoaded ? <MainBooksContainer page={"explore"} books={books} isLoaded={isLoaded} /> : null }
+      <ExploreSearchBar
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
+      <View style={{ width: "100%", height: "100%" }}>
+        {isLoaded ? (
+          <MainBooksContainer
+            page={"explore"}
+            books={books}
+            isLoaded={isLoaded}
+          />
+        ) : null}
+      </View>
     </View>
   );
 };
