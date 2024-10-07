@@ -10,7 +10,7 @@ type BookCardProps = {
     authors?: any[];
     description?: string;
     thumbnail: string;
-  }
+  };
   page: string;
 };
 
@@ -29,15 +29,31 @@ const BookCard = ({ isLoaded, book, page }: BookCardProps) => {
   }, [page]);
 
   return (
-      <Pressable onPress={isLoaded ? () => navigation.navigate(page === "explore" ? "Add a book" : "My book progress", {book}) : null}>
-    <View style={[styles.card, { width: cardWidth, height: cardHeight }]}>
-      {isLoaded ? (
-          <Image style={styles.image} source={{ uri: book.thumbnail }} />
+    <Pressable
+      onPress={
+        isLoaded
+          ? () =>
+              navigation.navigate(
+                page === "explore" ? "Add a book" : "My book progress",
+                { book }
+              )
+          : null
+      }
+    >
+      <View style={[styles.card, { width: cardWidth, height: cardHeight }]}>
+        {isLoaded ? (
+          <Image
+            style={styles.image}
+            source={{
+              uri:
+                page === "explore" ? book.thumbnail : book.imageLinks.thumbnail,
+            }}
+          />
         ) : (
           <View style={styles.placeholder} />
         )}
-    </View>
-        </Pressable>
+      </View>
+    </Pressable>
   );
 };
 
