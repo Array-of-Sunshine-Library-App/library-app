@@ -18,7 +18,6 @@ const LibraryScreen = () => {
       )
       .then((response: any) => {
         setBooks(response.data);
-        // console.log(response.data);
         setIsLoaded(true);
       })
       .catch((err: any) => {
