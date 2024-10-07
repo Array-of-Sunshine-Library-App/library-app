@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { FlatList, StyleSheet, View, Text } from "react-native";
 import FriendCard from "./FriendCard";
+import { getLibrary } from "../axiosRequests.ts";
+import axios from "axios";
 
 const devUsers = [
   {
