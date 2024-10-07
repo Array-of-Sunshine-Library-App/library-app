@@ -8,7 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
 const ProfileScreen = () => {
-  const { user, setUser } = useContext(UserContext);
+
   const [isLogIn, setLogIn] = useState(true);
   const [inputUsername, setInputUsername] = useState("");
   const [isIncorrectUser, setIsIncorrectUser] = useState(false);
@@ -16,7 +16,10 @@ const ProfileScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isEmptyInput, setIsEmptyInput] = useState(false);
   const [error, setError] = useState(null);
+  const { user, setUser } = useContext(UserContext);
   const navigation = useNavigation();
+
+
   console.log(user.username);
 
   const handlePressLogIn = () => {
@@ -59,6 +62,7 @@ const ProfileScreen = () => {
       })
       .catch((err: any) => {
         console.log("Error getting users->", err);
+        setError(err)
       });
   }, [user]);
 
