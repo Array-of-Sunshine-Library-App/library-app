@@ -5,7 +5,7 @@ import StatBlock from "./StatBlock";
 const FriendScreen = ({ route }) => {
   const { friend } = route.params;
   return (
-    <View style={styles.page}>
+    <View style={{ width: "100%", height: "100%" }}>
       <View style={styles.usernameContainer}>
         <Text style={styles.usernameText}>{friend.name}</Text>
       </View>
