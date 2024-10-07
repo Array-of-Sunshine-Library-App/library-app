@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import FloatingAddButton from "./FloatingAddButton";
 import MainBooksContainer from "./MainBooksContainer";
+import axios from "axios";
+import { UserContext } from "../contexts/UserContext";
 
 const WishListScreen = () => {
+  const [books, setBooks] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [error, setError] = useState(null);
+  const { user } = useContext(UserContext);
+
+  useEffect(() => {
+    axios
+      .get(
+        `https://hosting-api-yiyu.onrender.com/api/users/${user.username}/wishlist`
+      )
+      .then((response: any) => {
+        setBooks(response.data);
+        setIsLoaded(true);
+      })
+      .catch((err: any) => {
+        setIsLoaded(true);
+        setError("Failed to fetch books");
+        console.log("error occured fetching library", err);
+      });
+  }, []);
   return (
     <>
-      <MainBooksContainer page={"wishlist"} />
+      <MainBooksContainer page={"wishlist"} books={books} isLoaded={true} />
       <FloatingAddButton />
     </>
   );

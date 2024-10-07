@@ -18,14 +18,14 @@ const MainBooksContainer = ({
 
   return (
     <View style={{ flex: 1, justifyContent: "center" }}>
-      <Text>This is the MainBookContainer!</Text>
       <FlatList
         data={isLoaded ? books : Array(24).fill({})}
         renderItem={({ item, index }) => (
           <BookCard key={index} isLoaded={isLoaded} book={item} page={page} />
         )}
         numColumns={page === "explore" ? 3 : 4}
-        ListHeaderComponent={page === "explore" ? null : <FilterBar />}
+        ListHeaderComponent={null}
+        //ListHeaderComponent={page === "explore" ? null : <FilterBar />}
       />
     </View>
   );
