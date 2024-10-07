@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { View, Image, Animated } from "react-native";
+import { View, Image } from "react-native";
 import HomeScreen from "./HomeScreen";
 import LibraryScreen from "./LibraryScreen";
 import WishListScreen from "./WishListScreen";
