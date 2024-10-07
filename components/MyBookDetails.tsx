@@ -8,6 +8,7 @@ import {
   Image,
   Pressable,
   Modal,
+  ScrollView,
 } from "react-native";
 import BookBasicDetails from "./BookBasicDetails";
 import { useNavigation } from "@react-navigation/native";
@@ -65,7 +66,7 @@ const MyBookDetails = ({ route }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Modal
         style={styles.modal}
         animationType="none"
@@ -172,7 +173,7 @@ const MyBookDetails = ({ route }) => {
           <Text style={styles.buttonText}>Save</Text>
         </Pressable>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

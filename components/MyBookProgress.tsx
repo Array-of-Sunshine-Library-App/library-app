@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable, Text, View, StyleSheet } from "react-native";
+import { Pressable, Text, View, StyleSheet, ScrollView } from "react-native";
 import BookBasicDetails from "./BookBasicDetails";
 import { useNavigation } from "@react-navigation/native";
 
@@ -8,21 +8,24 @@ const MyBookProgress = ({ route }) => {
 
   const navigation = useNavigation();
 
-//   const handleAddToLibrary = () => {
-//     //post to library
-//     navigation.navigate("My book details", { book });
-//   };
+  //   const handleAddToLibrary = () => {
+  //     //post to library
+  //     navigation.navigate("My book details", { book });
+  //   };
 
   return (
-    <View style={styles.page}>
+    <ScrollView style={styles.page}>
       <BookBasicDetails book={book} />
       <Text>{book.description}</Text>
       <View style={styles.container}>
-        <Pressable style={[styles.button, {backgroundColor: "grey"}]} onPress={() => navigation.navigate("My book details", {book})}>
+        <Pressable
+          style={[styles.button, { backgroundColor: "grey" }]}
+          onPress={() => navigation.navigate("My book details", { book })}
+        >
           <Text style={styles.buttonText}>Book settings</Text>
         </Pressable>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
