@@ -195,7 +195,7 @@ const AppNavigator = () => {
         component={RegisterNewUser}
         options={{
           tabBarButton: () => null,
-          header: () => <AppHeader returnTo={"ProfileScreen"} />,
+          header: () => <AppHeader returnTo={"Library"} />,
         }}
       />
       <BottomTab.Screen

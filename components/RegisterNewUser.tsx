@@ -3,6 +3,7 @@ import { Text, View, TextInput } from "react-native";
 import { UserContext } from "../contexts/UserContext";
 import { Button } from "react-native-elements";
 import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 
 const RegisterNewUser = () => {  
     
@@ -11,77 +12,99 @@ const RegisterNewUser = () => {
   const [inputSurname, setInputSurname] = useState("")
   const [inputUsername, setInputUsername] = useState("")
   const [isEmptyField, setIsEmptyField] = useState(false)
-  const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
   const [isValidForm, setIsValidForm] = useState(true)
+  const [isRegistered, setIsRegistered] = useState(false)
+  const navigation = useNavigation();
+
 
 
 const validateUserData = ():boolean => {
+  setIsValidForm(true)
   if(!inputName){
     setIsEmptyField(true)
     setIsValidForm(false)
-  }else if(/^[A-Za-z\s]+$/g.test(inputName)){
+  }else if(!/^[A-Za-z\s]+$/g.test(inputName)){
     setIsValidForm(false)
+    setInputName("")
   }
   if(!inputSurname){
     setIsEmptyField(true)
     setIsValidForm(false)
-  }else if(/^[A-Za-z\s]+$/g.test(inputSurname)){
+  }else if(!/^[A-Za-z\s]+$/g.test(inputSurname)){
     setIsValidForm(false)
+    setInputSurname("")
   }
   if(!inputUsername){
     setIsEmptyField(true)
     setIsValidForm(false)
-  }else if(/^[A-Za-z0-9]+$/g.test(inputUsername)){
+  }else if(!/^[A-Za-z0-9]+$/g.test(inputUsername)){
     setIsValidForm(false)
+    setInputUsername("")
   }
+  console.log(isValidForm,"<----is valid?")
   return isValidForm;
 }
 
 
 
 const handlePressRegistration = () => {
+
   
   if(validateUserData()){
-
+    const newUser: { [key: string]: string } = {
+      name: inputName + ' ' + inputSurname,
+      username: inputUsername,
+  
+    };
+    console.log(newUser)
+      return axios.post(`https://hosting-api-yiyu.onrender.com/api/users/newuser`, newUser).
+      then(() => {
+        setUser(newUser)
+        console.log( "insertValidNewData")
+        setInputName("")
+        setInputSurname("")
+        setInputUsername("")
+        setIsRegistered(true)
+      })
+      .catch((err) => {
+        console.log("Error: posting new user:", err)
+        setIsRegistered(false)
+      })
   }
 }
-  useEffect(() => {
-    axios
-      .get(
-        `https://hosting-api-yiyu.onrender.com/api/users/${user.username}/books`
-      )
-      .then((response: any) => {
-        // console.log(response.data);
-        setIsLoaded(true);
-      })
-      .catch((err: any) => {
-        setIsLoaded(true);
-
-        console.log("Error Register New User", err);
-      });
-  }, []);
+const handleBackRegistration = () => {
+  navigation.navigate("Library")
+}
   return (
     <View> <Text>New User Registration</Text>
-        <Text> Enter First Name:</Text>
+      {!isRegistered &&
+      <View>
+      {isEmptyField && <Text>All fields are required. No empty inputs please</Text>}
+      {!isValidForm && <Text>The input is invalid</Text>}
+        <View><Text> Enter First Name:</Text>
           <TextInput
-            placeholder="here..."
+            placeholder="..."
             value={inputName}
             onChangeText={(newName) => setInputName(newName)}
           />
                <Text> Enter Surname:</Text>
           <TextInput
-            placeholder="here..."
+            placeholder="..."
             value={inputSurname}
             onChangeText={(newSurname)=> setInputSurname(newSurname)}
           />
           <Text> Enter Username:</Text>
           <TextInput
-            placeholder="here..."
+            placeholder="..."
             value={inputUsername}
             onChangeText={(newUsername) => setInputUsername(newUsername)}
           />
+   
            <Button title="Register" onPress={handlePressRegistration} />
+           </View>
+           </View>}
+           {isRegistered && <View></View>}    <Button title="Registration complete" onPress={handleBackRegistration} />
     </View>
   );
 };
