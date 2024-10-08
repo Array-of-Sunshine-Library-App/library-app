@@ -15,15 +15,22 @@ const ExploreScreen = () => {
     const fetchBooks = async () => {
       try {
         const response = await axios.get(
-          `https://www.googleapis.com/books/v1/volumes?q=${searchQuery}&key=${API_KEY}`
+          `https://www.googleapis.com/books/v1/volumes?q=${searchQuery}&key=${API_KEY}&maxResults=40`
         );
         const mappedBooks = response.data.items.map((item: any) => ({
+          bookId: item.volumeInfo.industryIdentifiers[0].identifier,
           title: item.volumeInfo.title,
           authors: item.volumeInfo.authors,
           description: item.volumeInfo.description,
+          publisher: item.volumeInfo.publisher,
+          publishedDate: item.volumeInfo.publishedDate,
+          language: item.volumeInfo.language,
+          pageCount: item.volumeInfo.pageCount,
+          categories: item.volumeInfo.categories,
           thumbnail: item.volumeInfo.imageLinks.thumbnail,
         }));
 
+        setError(null);
         setBooks(mappedBooks);
 
         setIsLoaded(true);
@@ -33,7 +40,7 @@ const ExploreScreen = () => {
       }
     };
 
-    fetchBooks();
+    if (searchQuery) fetchBooks();
   }, [searchQuery]);
 
   return (

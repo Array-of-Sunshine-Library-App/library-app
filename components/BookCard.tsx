@@ -42,13 +42,7 @@ const BookCard = ({ isLoaded, book, page }: BookCardProps) => {
     >
       <View style={[styles.card, { width: cardWidth, height: cardHeight }]}>
         {isLoaded ? (
-          <Image
-            style={styles.image}
-            source={{
-              uri:
-                page === "explore" ? book.thumbnail : book.imageLinks.thumbnail,
-            }}
-          />
+          <Image style={styles.image} source={{ uri: book.thumbnail }} />
         ) : (
           <View style={styles.placeholder} />
         )}

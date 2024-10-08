@@ -1,16 +1,38 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Pressable, Text, View, StyleSheet } from "react-native";
 import BookBasicDetails from "./BookBasicDetails";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
+import { UserContext } from "../contexts/UserContext";
 
 const AddBookScreen = ({ route }) => {
   const { book } = route.params;
+  const { user } = useContext(UserContext);
+  const [error, setError] = useState(null);
 
   const navigation = useNavigation();
 
   const handleAddToLibrary = () => {
-    //post to library
-    navigation.navigate("My book details", { book });
+    book.isOwned = true;
+    book.isPhysical = true;
+    book.isLendable = true;
+    book.isRead = false;
+    book.privateNotes = "";
+    book.offAppBorrower = "";
+    book.review = "";
+    book.rating = 0;
+
+    axios
+      .post(
+        `https://hosting-api-yiyu.onrender.com/api/users/${user.username}/books`,
+        book
+      )
+      .then((response: any) => {
+        navigation.navigate("My book details", { book });
+      })
+      .catch((err: any) => {
+        setError("Error posting book to library");
+      });
   };
 
   return (

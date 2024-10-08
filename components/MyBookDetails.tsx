@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -13,38 +13,59 @@ import {
 import BookBasicDetails from "./BookBasicDetails";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
+import axios from "axios";
+import { UserContext } from "../contexts/UserContext";
 
 const MyBookDetails = ({ route }) => {
   const { book } = route.params;
-
+  const { user } = useContext(UserContext);
   const navigation = useNavigation();
 
-  const [isOwned, setIsOwned] = useState(true);
-  const [isPhysical, setIsPhysical] = useState(true);
-  const [isLendable, setIsLendable] = useState(true);
-  const [isRead, setIsRead] = useState(false);
-  const [privateNotes, setPrivateNotes] = useState("");
-  const [offAppBorrower, setOffAppBorrower] = useState("");
-  const [review, setReview] = useState("");
-  const [rating, setRating] = useState(0);
+  const [isOwned, setIsOwned] = useState(book.isOwned);
+  const [isPhysical, setIsPhysical] = useState(book.isPhysical);
+  const [isLendable, setIsLendable] = useState(book.isLendable);
+  const [isRead, setIsRead] = useState(book.isRead);
+  const [privateNotes, setPrivateNotes] = useState(book.privateNotes);
+  const [offAppBorrower, setOffAppBorrower] = useState(book.offAppBorrower);
+  const [review, setReview] = useState(book.review);
+  const [rating, setRating] = useState(book.rating);
   const [modalVisible, setModalVisible] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setIsOwned(book.isOwned);
+    setIsPhysical(book.isPhysical);
+    setIsLendable(book.isLendable);
+    setIsRead(book.isRead);
+    setPrivateNotes(book.privateNotes);
+    setOffAppBorrower(book.offAppBorrower);
+    setReview(book.review);
+    setRating(book.rating);
+  }, [book]);
 
   const handleSave = () => {
     if (!isOwned && !isRead) {
       setModalVisible(true);
     } else {
-      //patch book
-      console.log({
-        isOwned,
-        isPhysical,
-        isLendable,
-        isRead,
-        privateNotes,
-        offAppBorrower,
-        review,
-        rating,
-      });
-      navigation.navigate("My book progress", { book });
+      book.isOwned = isOwned;
+      book.isPhysical = isPhysical;
+      book.isLendable = isLendable;
+      book.isRead = isRead;
+      book.privateNotes = privateNotes;
+      book.offAppBorrower = offAppBorrower;
+      book.review = review;
+      book.rating = rating;
+      axios
+        .post(
+          `https://hosting-api-yiyu.onrender.com/api/users/${user.username}/books`,
+          book
+        )
+        .then((response: any) => {
+          navigation.navigate("My book progress", { book });
+        })
+        .catch((err: any) => {
+          setError("Error patching book in library");
+        });
     }
   };
 
