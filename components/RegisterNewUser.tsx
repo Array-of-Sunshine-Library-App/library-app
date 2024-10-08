@@ -21,6 +21,7 @@ const RegisterNewUser = () => {
 
 const validateUserData = ():boolean => {
   setIsValidForm(true)
+  setIsRegistered(false)
   if(!inputName){
     setIsEmptyField(true)
     setIsValidForm(false)
@@ -104,7 +105,7 @@ const handleBackRegistration = () => {
            <Button title="Register" onPress={handlePressRegistration} />
            </View>
            </View>}
-           {isRegistered && <View></View>}    <Button title="Registration complete" onPress={handleBackRegistration} />
+           {isRegistered && <View> <Button title="Registration complete" onPress={handleBackRegistration} /></View>}  
     </View>
   );
 };
