@@ -4,6 +4,7 @@ import BookBasicDetails from "./BookBasicDetails";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { UserContext } from "../contexts/UserContext";
+import functions from "../axiosRequests";
 
 const AddBookScreen = ({ route }) => {
   const { book } = route.params;
@@ -36,12 +37,24 @@ const AddBookScreen = ({ route }) => {
       });
   };
 
+
   const handleSendRequest = () => {
-    functions.requestToBorrow(user.username, friend).then(() => {
-      setIsFriend(true);
-      setIsIncomingFriendRequest(false);
-      setUpdated(1);
+//     functions.requestToBorrow(user.username, friend).then(() => {
+//       setIsFriend(true);
+//       setIsIncomingFriendRequest(false);
+//       setUpdated(1);
     });
+
+  const handleAddToWishlist = () => {
+    functions
+      .postWishlist(user.username, book)
+      .then((response: any) => {
+        navigation.navigate("Wish List");
+      })
+      .catch((err) => {
+        setError("Error posting book to wishlist");
+      });
+
   };
 
   return (
@@ -60,7 +73,7 @@ const AddBookScreen = ({ route }) => {
       ) : null}
 
       <View style={styles.container}>
-        <Pressable style={styles.actionButton}>
+        <Pressable style={styles.actionButton} onPress={handleAddToWishlist}>
           <Text style={styles.pressableText}>Add to Wishlist</Text>
         </Pressable>
         <Pressable style={styles.actionButton} onPress={handleAddToLibrary}>

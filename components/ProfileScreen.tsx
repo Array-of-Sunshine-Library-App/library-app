@@ -1,5 +1,6 @@
 import { Text, View, TextInput } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
+import { StyleSheet } from "react-native";
 
 import { UserContext } from "../contexts/UserContext";
 import { Button } from "react-native-elements";
@@ -70,30 +71,77 @@ const ProfileScreen = () => {
   //     return <View><Text>...Loading</Text></View>
   // }
   return (
-    <View>
+    <View style={styles.section}>
+      <Text style={styles.title}>User Profile</Text>
       {isLogIn && (
-        <View>
-          <Text>{user.username}</Text>
-          <Button title="Log Out" onPress={handlePressLogOut} />
-          <Button title="Register" onPress={handlePressRegister} />
+        <View >
+          <Text style={styles.text} >Username: {user.username}</Text>
+          <Text style={styles.text} >Name: {user.name}</Text>
+          <View style={styles.butsection}> <Button style={styles.button}  title="Log Out" onPress={handlePressLogOut} />
+          <Button  style={styles.button}  title="Register" onPress={handlePressRegister} /> </View>
         </View>
       )}
       {!isLogIn && (
         <View>
-          <Text> Enter username:</Text>
-          <TextInput
-            placeholder="here..."
+          <Text style={styles.text} > Enter username:</Text>
+          <TextInput style={styles.text} 
+            placeholder="..."
             value={inputUsername}
             onChangeText={(newUsername) => setInputUsername(newUsername)}
           />
-            {isEmptyInput && <Text> It is empty. Please enter username</Text>}
-            {isIncorrectUser && <Text> User incorrect. Try again</Text>}
-          <Button title="Log In" onPress={handlePressLogIn} />
-          <Button title="Register" onPress={handlePressRegister} />
-        </View>
+            {isEmptyInput && <Text  style={styles.textError}> It is empty. Please enter username</Text>}
+            {isIncorrectUser && <Text  style={styles.textError}> User incorrect. Try again</Text>}
+            <View style={styles.butsection}><Button style={styles.button} title="Log In" onPress={handlePressLogIn} />
+          <Button style={styles.button}  title="Register" onPress={handlePressRegister} /> </View>
+       </View>
       )}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  section: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    padding : 15,
+    borderColor: 'black',
+    borderRadius: 35 
+  },
+  button : {
+    width : 200,
+    height: 90,
+    //backgroundColor: '#00aeef',
+      borderColor: 'black',
+      borderRadius: 35,
+      margin: 10
+  },
+  title:{
+    fontSize: 40,
+    fontWeight: 'bold',
+    padding: 20,
+    fontFamily: 'Georgia', 
+    fontStyle: 'italic'
+  },
+  text : {
+    fontSize: 35,
+    fontFamily: 'Georgia', 
+    fontStyle: 'italic'
+  },
+  textError : {
+    fontSize: 20
+  },
+  inputText : {
+    borderColor: "black",
+    borderRightColor: "black"
+  },
+  butsection : {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  }
+});
+
 
 export default ProfileScreen;
