@@ -1,9 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Dimensions, Image, Pressable } from "react-native";
+import { useEffect, useState } from "react";
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  Image,
+  Pressable,
+  Text,
+  ImageBackground,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 type BookCardProps = {
-  key: number;
   isLoaded: boolean;
   book: {
     title: string;
@@ -42,7 +49,19 @@ const BookCard = ({ isLoaded, book, page }: BookCardProps) => {
     >
       <View style={[styles.card, { width: cardWidth, height: cardHeight }]}>
         {isLoaded ? (
-          <Image style={styles.image} source={{ uri: book.thumbnail }} />
+          book.thumbnail ? (
+            <Image style={styles.image} source={{ uri: book.thumbnail }} />
+          ) : (
+            <ImageBackground
+              source={require("../assets/book-placeholder.png")}
+              style={styles.bookplaceholder}
+              resizeMode="cover" // or "contain", based on your preference
+            >
+              <View>
+                <Text style={styles.title}>{book.title}</Text>
+              </View>
+            </ImageBackground>
+          )
         ) : (
           <View style={styles.placeholder} />
         )}
@@ -65,10 +84,24 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
 
+  bookplaceholder: {
+    width: "100%",
+    height: "100%",
+  },
+
   placeholder: {
     width: "100%",
     height: "100%",
     backgroundColor: "grey",
+  },
+
+  title: {
+    marginTop: 10,
+    margin: 6,
+    fontSize: 16,
+    fontWeight: "medium",
+    color: "white",
+    textAlign: "center",
   },
 });
 

@@ -14,25 +14,27 @@ const ExploreScreen = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
+        setIsLoaded(false);
         const response = await axios.get(
           `https://www.googleapis.com/books/v1/volumes?q=${searchQuery}&key=${API_KEY}&maxResults=40`
         );
-        const mappedBooks = response.data.items.map((item: any) => ({
-          bookId: item.volumeInfo.industryIdentifiers[0].identifier,
-          title: item.volumeInfo.title,
-          authors: item.volumeInfo.authors,
-          description: item.volumeInfo.description,
-          publisher: item.volumeInfo.publisher,
-          publishedDate: item.volumeInfo.publishedDate,
-          language: item.volumeInfo.language,
-          pageCount: item.volumeInfo.pageCount,
-          categories: item.volumeInfo.categories,
-          thumbnail: item.volumeInfo.imageLinks.thumbnail,
-        }));
-
+        const mappedBooks = response.data.items
+          .filter((item: any) => item.volumeInfo)
+          .map((item: any) => ({
+            bookId:
+              item.volumeInfo.industryIdentifiers?.[0]?.identifier || "N/A",
+            title: item.volumeInfo.title || "No Title",
+            authors: item.volumeInfo.authors || ["Unknown Author"],
+            description: item.volumeInfo.description || "No Description",
+            publisher: item.volumeInfo.publisher || "Unknown Publisher",
+            publishedDate: item.volumeInfo.publishedDate || "N/A",
+            language: item.volumeInfo.language || "Unknown Language",
+            pageCount: item.volumeInfo.pageCount || 0,
+            categories: item.volumeInfo.categories || [],
+            thumbnail: item.volumeInfo.imageLinks?.thumbnail || null,
+          }));
         setError(null);
         setBooks(mappedBooks);
-
         setIsLoaded(true);
       } catch {
         setError("failed to fetch books!");
