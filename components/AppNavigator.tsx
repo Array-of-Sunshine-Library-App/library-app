@@ -19,7 +19,17 @@ const AppNavigator = () => {
   const iconSize = 36;
   const viewSize = 44;
   return (
-    <BottomTab.Navigator screenOptions={{ header: () => <AppHeader /> }}>
+    <BottomTab.Navigator
+      screenOptions={{
+        header: () => <AppHeader />,
+      }}
+      // screenOptions={{
+      //   header: () => <AppHeader />,
+      //   // when true, BottomTab.Screens that become invisible get unmounted
+      //   // https://reactnavigation.org/docs/bottom-tab-navigator/#unmountonblur
+      //   unmountOnBlur: true,
+      // }}
+    >
       <BottomTab.Screen
         name="Home"
         component={HomeScreen}
@@ -171,7 +181,12 @@ const AppNavigator = () => {
         component={AddBookScreen}
         options={{
           tabBarButton: () => null,
-          header: () => <AppHeader returnTo={"Explore"} />,
+          header: ({ route }) => {
+            const returnTo = route?.params?.ownerUsername
+              ? "Friend List"
+              : "Explore";
+            return <AppHeader returnTo={returnTo} />;
+          },
         }}
       />
       <BottomTab.Screen
@@ -190,7 +205,7 @@ const AppNavigator = () => {
           header: () => <AppHeader returnTo={"Library"} />,
         }}
       />
-         <BottomTab.Screen
+      <BottomTab.Screen
         name="New User"
         component={RegisterNewUser}
         options={{

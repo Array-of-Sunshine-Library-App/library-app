@@ -44,17 +44,19 @@ const FriendSearchBar = () => {
         onSubmitEditing={handleSubmit}
         onClear={handleClear}
       />
-      <View style={{ width: "100%", height: "100%" }}>
-        <FlatList
-          data={users}
-          renderItem={({ item, index }) => (
-            <FriendCard key={index} friend={item} page={"searchBar"} />
-          )}
-          keyExtractor={(item, index) => index.toString()}
-          numColumns={1}
-          extraData={users}
-        />
-      </View>
+      {users.length > 0 ? (
+        <View style={{ width: "100%", height: "100%" }}>
+          <FlatList
+            data={users}
+            renderItem={({ item, index }) => (
+              <FriendCard key={index} friend={item} page={"searchBar"} />
+            )}
+            keyExtractor={(item, index) => index.toString()}
+            numColumns={1}
+            extraData={users}
+          />
+        </View>
+      ) : null}
     </View>
   );
 };

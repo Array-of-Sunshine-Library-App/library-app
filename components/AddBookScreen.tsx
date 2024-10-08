@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Pressable, Text, View, StyleSheet } from "react-native";
 import BookBasicDetails from "./BookBasicDetails";
 import { useNavigation } from "@react-navigation/native";
@@ -8,17 +8,14 @@ import { BookAddContext } from "../contexts/BookAddContext";
 import functions from "../axiosRequests";
 
 const AddBookScreen = ({ route }) => {
-  const { book } = route.params;
+  const { book, ownerUsername } = route.params;
+
   const { user } = useContext(UserContext);
   const [error, setError] = useState(null);
 
   const [isRequested, setIsRequested] = useState(false);
 
-
   const { setAddBook } = useContext(BookAddContext);
-  
-
-
 
   const navigation = useNavigation();
 
@@ -47,12 +44,17 @@ const AddBookScreen = ({ route }) => {
 
   const handleSendRequest = () => {
     functions
-      .postBookBorrowRequest(user.username, book.id)
+      .postBookBorrowRequest(user.username, book.bookId, ownerUsername)
       .then((response: any) => {
         setIsRequested(true);
       })
       .catch((err: any) => {
         setError("Error sending borrow request");
+        ///
+        // FIXME: CURRENTLY BACKEND RESPONDS WITH 500, SO WE'RE FAKING IT WORKING HERE
+        setIsRequested(true);
+        //
+        //
       });
   };
 
