@@ -12,7 +12,7 @@ import functions from "../axiosRequests";
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 
-const FriendCard = ({ friend, page, setUpdated }) => {
+const FriendCard = ({ friend, page, setUpdated } : any) => {
   const { user } = useContext(UserContext);
   const [isFriend, setIsFriend] = useState(false);
   const [isOutgoingFriendRequest, setIsOutgoingFriendRequest] = useState(false);

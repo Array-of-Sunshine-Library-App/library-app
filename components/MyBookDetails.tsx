@@ -17,7 +17,7 @@ import { UserContext } from "../contexts/UserContext";
 import functions from "../axiosRequests";
 import { BookAddContext } from "../contexts/BookAddContext";
 
-const MyBookDetails = ({ route }) => {
+const MyBookDetails = ({ route }:any) => {
   const { book } = route.params;
   const { user } = useContext(UserContext);
   const { setAddBook } = useContext(BookAddContext);

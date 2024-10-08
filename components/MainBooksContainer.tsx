@@ -7,6 +7,7 @@ type MainBooksContainerProps = {
   books: any[];
   page: string;
   isLoaded: boolean;
+  ownerUsername : string;
 };
 
 const MainBooksContainer = ({

@@ -4,7 +4,7 @@ import { Text, View, StyleSheet } from "react-native";
 import MainBooksContainer from "./MainBooksContainer";
 //import StatBlock from "./StatBlock";
 
-const FriendScreen = ({ route }) => {
+const FriendScreen = ({ route }: any) => {
   const { friend } = route.params;
   const [books, setBooks] = useState<any[]>([]);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
