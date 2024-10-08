@@ -124,8 +124,6 @@ function getUser(username: string) {
 }
 
 function deleteFriend(username: string, toDelete: string) {
-  console.log("username", username);
-  console.log("toDelete", toDelete);
   return axios
     .delete(
       `https://hosting-api-yiyu.onrender.com/api/users/${username}/friends/${toDelete}`
@@ -161,6 +159,42 @@ function getLendingList(username: string) {
     });
 }
 
+function postBookBorrowRequest(
+  borrowerUsername: string,
+  bookId: string,
+  ownerUsername: string
+) {
+  return axios.post(
+    `https://hosting-api-yiyu.onrender.com/api/users/${borrowerUsername}/books/${bookId}/requestlend/${ownerUsername}`
+  );
+}
+
+function deleteBookBorrowRequest(borrowerUsername: string, bookId: string) {
+  return axios.delete(
+    `https://hosting-api-yiyu.onrender.com/api/users/${borrowerUsername}/borrowrequest/${bookId}`
+  );
+}
+
+function acceptBookBorrowRequest(
+  ownerUsername: string,
+  bookId: string,
+  borrowerUsername: string
+) {
+  return axios.post(
+    `https://hosting-api-yiyu.onrender.com/api/users/${ownerUsername}/books/${bookId}/acceptrequest/${borrowerUsername}`
+  );
+}
+
+function returnBookAfterBorrow(
+  borrowerUsername: string,
+  ownerUsername: string,
+  bookId: string
+) {
+  return axios.delete(
+    `https://hosting-api-yiyu.onrender.com/api/users/${borrowerUsername}/returnbook/${ownerUsername}/${bookId}`
+  );
+}
+
 const functions = {
   getLibrary,
   getWishlist,
@@ -180,6 +214,10 @@ const functions = {
   getLendableFriends,
   getBorrowingList,
   getLendingList,
+  postBookBorrowRequest,
+  deleteBookBorrowRequest,
+  acceptBookBorrowRequest,
+  returnBookAfterBorrow,
 };
 
 export default functions;
