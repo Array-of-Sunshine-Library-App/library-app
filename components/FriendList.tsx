@@ -1,50 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet, View, Text } from "react-native";
 import FriendCard from "./FriendCard";
-
-const devUsers = [
-  {
-    userID: 5,
-    name: "Harry Potter",
-    readingStats: {
-      booksRead: 411,
-      totalPagesRead: 123308,
-      booksLent: 5,
-      numberBooksBorrowed: 10,
-    },
-  },
-  {
-    userID: 6,
-    name: "Tim",
-    readingStats: {
-      booksRead: 11,
-      totalPagesRead: 212308,
-      booksLent: 5,
-      numberBooksBorrowed: 4,
-    },
-  },
-  {
-    userID: 7,
-    name: "Mario",
-    readingStats: {
-      booksRead: 321,
-      totalPagesRead: 212308,
-      booksLent: 1,
-      numberBooksBorrowed: 2,
-    },
-  },
-];
+import functions from "../axiosRequests";
+import { useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
 
 const FriendList = () => {
-  const [users, setUsers] = useState<any[]>(devUsers);
+  const { user } = useContext(UserContext);
+  const [users, setUsers] = useState<any[]>([]);
+  const [isFriend, setIsFriend] = useState(false);
+
+  useEffect(() => {
+    functions.getFriends(user.username).then((request: any) => {
+      setUsers(request.data);
+    });
+  }, [users]);
 
   return (
-    <View>
+    <View style={{ width: "100%", height: "100%" }}>
       <Text>Your friends:</Text>
       <FlatList
         data={users}
         renderItem={({ item, index }) => (
-          <FriendCard key={index} friend={item} />
+          <FriendCard
+            key={index}
+            friend={item}
+            page={"friend"}
+            users={users}
+            setUsers={setUsers}
+          />
         )}
         numColumns={1}
       />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,33 +8,62 @@ import {
   Image,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import functions from "../axiosRequests";
+import { useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
 
-const FriendCard = ({ friend }) => {
+const FriendCard = ({ friend, page, users, setUsers }) => {
+  const { user } = useContext(UserContext);
   const [isFriend, setIsFriend] = useState(false);
   const [isOutgoingFriendRequest, setIsOutgoingFriendRequest] = useState(false);
-  const [isIncomingFriendRequest, setIsIncomingFriendRequest] = useState(true);
+  const [isIncomingFriendRequest, setIsIncomingFriendRequest] = useState(false);
 
   const navigation = useNavigation();
 
+  useEffect(() => {
+    if (page === "friend") {
+      setIsFriend(true);
+      setIsOutgoingFriendRequest(false);
+      setIsIncomingFriendRequest(false);
+    } else if (page === "friendRequest") {
+      setIsFriend(false);
+      setIsOutgoingFriendRequest(false);
+      setIsIncomingFriendRequest(true);
+    }
+  }, [page]);
+
   const handleSendFriendRequest = () => {
-    setIsOutgoingFriendRequest(true);
+    functions.postFriendRequest(friend.username, user).then(() => {
+      setIsOutgoingFriendRequest(true);
+    });
   };
 
   const handleRevokeFriendRequest = () => {
-    setIsOutgoingFriendRequest(false);
+    functions.deleteFriendRequest(friend.username, user.username).then(() => {
+      setIsOutgoingFriendRequest(false);
+    });
   };
 
   const handleAcceptFriendRequest = () => {
-    setIsFriend(true);
-    setIsIncomingFriendRequest(false);
+    functions.acceptFriendRequest(user.username, friend).then(() => {
+      setIsFriend(true);
+      setIsIncomingFriendRequest(false);
+      setUsers([]);
+    });
   };
 
   const handleDeclineFriendRequest = () => {
-    setIsIncomingFriendRequest(false);
+    functions.deleteFriendRequest(user.username, friend.username).then(() => {
+      setIsIncomingFriendRequest(false);
+      setUsers([]);
+    });
   };
 
   const handleDeleteFriend = () => {
-    setIsFriend(false);
+    functions.deleteFriend(user.username, friend.username).then(() => {
+      setIsFriend(false);
+      setUsers([]);
+    });
   };
 
   return (
@@ -45,8 +74,8 @@ const FriendCard = ({ friend }) => {
     >
       <View style={[styles.card]}>
         <View>
-          <Text style={[styles.name]}>{friend.name}</Text>
-          <Text>Has read {friend.readingStats.booksRead} books</Text>
+          <Text style={[styles.name]}>{friend.username}</Text>
+          <Text> {friend.name} </Text>
         </View>
         {isFriend ? (
           <View style={[styles.buttonContainer]}>

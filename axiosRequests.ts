@@ -123,6 +123,18 @@ function getUser(username: string) {
     });
 }
 
+function deleteFriend(username: string, toDelete: string) {
+  console.log("username", username);
+  console.log("toDelete", toDelete);
+  return axios
+    .delete(
+      `https://hosting-api-yiyu.onrender.com/api/users/${username}/friends/${toDelete}`
+    )
+    .then((users) => {
+      return users;
+    });
+}
+
 const functions = {
   getLibrary,
   getWishlist,
@@ -138,6 +150,7 @@ const functions = {
   acceptFriendRequest,
   deleteFriendRequest,
   getUser,
+  deleteFriend,
 };
 
 export default functions;

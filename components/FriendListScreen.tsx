@@ -8,8 +8,10 @@ const FriendListScreen = () => {
   return (
     <View>
       <FriendSearchBar />
-      <FriendRequests />
-      <FriendList />
+      <View>
+        <FriendRequests />
+        <FriendList />
+      </View>
     </View>
   );
 };
