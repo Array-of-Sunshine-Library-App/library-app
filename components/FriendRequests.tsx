@@ -13,7 +13,7 @@ const FriendRequests = () => {
     functions.getFriendRequests(user.username).then((request: any) => {
       setUsers(request.data);
     });
-  }, [users]);
+  }, []);
 
   return (
     <View>
