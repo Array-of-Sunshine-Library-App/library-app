@@ -139,11 +139,6 @@ function getLendableFriends(username: string) {
   return axios
     .get(`https://hosting-api-yiyu.onrender.com/api/users/${username}/books`)
     .then((books) => {
-      //   const lendable = books.map((book: any) => {
-      //     if (book.isLendable) {
-      //       return book;
-      //     }
-      //   });
       return books;
     });
 }

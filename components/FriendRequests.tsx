@@ -8,12 +8,12 @@ import { UserContext } from "../contexts/UserContext";
 const FriendRequests = () => {
   const { user } = useContext(UserContext);
   const [users, setUsers] = useState<any[]>([]);
-
+  const [updated, setUpdated] = useState<number>(0);
   useEffect(() => {
     functions.getFriendRequests(user.username).then((request: any) => {
       setUsers(request.data);
     });
-  }, []);
+  }, [updated]);
 
   return (
     <View>
@@ -27,8 +27,7 @@ const FriendRequests = () => {
             key={index}
             friend={item}
             page={"friendRequest"}
-            users={users}
-            setUsers={setUsers}
+            setUpdated={setUpdated}
           />
         )}
         numColumns={1}
