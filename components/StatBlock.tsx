@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 
-const StatBlock = ({ friend }) => {
+const StatBlock = ({ friend }: any) => {
   const booksOwned = Math.floor(Math.random() * 150);
   const booksWished = Math.floor(Math.random() * 50);
   const booksRead = Math.floor(Math.random() * 150);

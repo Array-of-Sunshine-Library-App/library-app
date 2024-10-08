@@ -19,6 +19,7 @@ type BookCardProps = {
     thumbnail: string;
   };
   page: string;
+  ownerUsername : string;
 };
 
 let booksPerRow = 4;

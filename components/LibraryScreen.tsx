@@ -3,7 +3,6 @@ import MainBooksContainer from "./MainBooksContainer";
 import FloatingAddButton from "./FloatingAddButton";
 import { UserContext } from "../contexts/UserContext";
 import { BookAddContext } from "../contexts/BookAddContext";
-import { getLibrary } from "../axiosRequests.ts";
 import axios from "axios";
 
 const LibraryScreen = () => {

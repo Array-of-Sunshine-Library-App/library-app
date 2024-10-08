@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { SearchBar } from "@rneui/themed";
 
 
-const ExploreSearchBar = ({searchQuery, setSearchQuery}) => {
+const ExploreSearchBar = ({searchQuery, setSearchQuery} : any) => {
     const [searchBarValue, setSearchBarValue] = useState("");
     
     const handleSubmit = () => {

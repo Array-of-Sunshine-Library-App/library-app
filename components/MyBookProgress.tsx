@@ -3,7 +3,7 @@ import { Pressable, Text, View, StyleSheet, ScrollView } from "react-native";
 import BookBasicDetails from "./BookBasicDetails";
 import { useNavigation } from "@react-navigation/native";
 
-const MyBookProgress = ({ route }) => {
+const MyBookProgress = ({ route }: any) => {
   const { book } = route.params;
 
   const navigation = useNavigation();

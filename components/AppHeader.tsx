@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
-const AppHeader = ({ returnTo }) => {
+const AppHeader = ({ returnTo } : any) => {
   const navigation = useNavigation();
   const route = useRoute();
 

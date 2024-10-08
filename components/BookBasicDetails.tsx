@@ -5,7 +5,7 @@ const { width } = Dimensions.get("window");
 const cardWidth = width / 3 - 10;
 const cardHeight = cardWidth * 1.5;
 
-const BookBasicDetails = ({ book }) => {
+const BookBasicDetails = ({ book }: any) => {
   const authorsString = book.authors.join(", ");
 
   return (
