@@ -10,6 +10,7 @@ const AddBookScreen = ({ route }) => {
   const { book } = route.params;
   const { user } = useContext(UserContext);
   const [error, setError] = useState(null);
+  const [isRequested, setIsRequested] = useState;
 
   const navigation = useNavigation();
 
@@ -36,6 +37,14 @@ const AddBookScreen = ({ route }) => {
       });
   };
 
+
+  const handleSendRequest = () => {
+//     functions.requestToBorrow(user.username, friend).then(() => {
+//       setIsFriend(true);
+//       setIsIncomingFriendRequest(false);
+//       setUpdated(1);
+    });
+
   const handleAddToWishlist = () => {
     functions
       .postWishlist(user.username, book)
@@ -45,12 +54,24 @@ const AddBookScreen = ({ route }) => {
       .catch((err) => {
         setError("Error posting book to wishlist");
       });
+
   };
 
   return (
     <View style={styles.page}>
       <BookBasicDetails book={book} />
       <Text>{book.description}</Text>
+
+      {book.isLendable ? (
+        <>
+          <View style={styles.requestToBorrowContainer}>
+            <Pressable style={styles.actionButton} onPress={handleSendRequest}>
+              <Text style={styles.pressableText}>Request to borrow</Text>
+            </Pressable>
+          </View>
+        </>
+      ) : null}
+
       <View style={styles.container}>
         <Pressable style={styles.actionButton} onPress={handleAddToWishlist}>
           <Text style={styles.pressableText}>Add to Wishlist</Text>
@@ -85,6 +106,16 @@ const styles = StyleSheet.create({
   page: {
     padding: 20,
     gap: 10,
+  },
+
+  requestToBorrowContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    margin: 5,
+    padding: 12,
+    borderRadius: 5,
+    backgroundColor: "white",
   },
 });
 
