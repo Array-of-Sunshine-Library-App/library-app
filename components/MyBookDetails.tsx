@@ -13,12 +13,13 @@ import {
 import BookBasicDetails from "./BookBasicDetails";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
-import axios from "axios";
 import { UserContext } from "../contexts/UserContext";
+import functions from "../axiosRequests";
 
 const MyBookDetails = ({ route }) => {
   const { book } = route.params;
   const { user } = useContext(UserContext);
+  const { postLibrary, deleteLibraryBook, postWishlist } = functions;
   const navigation = useNavigation();
 
   const [isOwned, setIsOwned] = useState(book.isOwned);
@@ -55,30 +56,47 @@ const MyBookDetails = ({ route }) => {
       book.offAppBorrower = offAppBorrower;
       book.review = review;
       book.rating = rating;
-      axios
-        .post(
-          `https://hosting-api-yiyu.onrender.com/api/users/${user.username}/books`,
-          book
-        )
-        .then((response: any) => {
+      postLibrary(user.username, book)
+        .then(() => {
           navigation.navigate("My book progress", { book });
         })
-        .catch((err: any) => {
+        .catch(() => {
           setError("Error patching book in library");
         });
     }
   };
 
   const handleDelete = () => {
-    //api call
-    setModalVisible(false);
-    navigation.navigate("Library");
+    deleteLibraryBook(user.username, book.bookId)
+      .then(() => {
+        setModalVisible(false);
+        navigation.navigate("Library");
+      })
+      .catch(() => {
+        setError("Error deleting book from your library");
+      });
   };
 
   const handleMoveToWishlist = () => {
-    //api call
-    setModalVisible(false);
-    navigation.navigate("Wish List");
+    book.isOwned = isOwned;
+    book.isPhysical = isPhysical;
+    book.isLendable = isLendable;
+    book.isRead = isRead;
+    book.privateNotes = privateNotes;
+    book.offAppBorrower = offAppBorrower;
+    book.review = review;
+    book.rating = rating;
+    postWishlist(user.username, book)
+      .then(() => {
+        deleteLibraryBook(user.username, book.bookId);
+      })
+      .then(() => {
+        setModalVisible(false);
+        navigation.navigate("Wish List");
+      })
+      .catch(() => {
+        setError("Error moving this book to your wishlist");
+      });
   };
 
   const stars = [1, 2, 3, 4, 5];
