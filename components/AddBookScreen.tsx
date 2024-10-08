@@ -37,13 +37,12 @@ const AddBookScreen = ({ route }) => {
       });
   };
 
-
   const handleSendRequest = () => {
-//     functions.requestToBorrow(user.username, friend).then(() => {
-//       setIsFriend(true);
-//       setIsIncomingFriendRequest(false);
-//       setUpdated(1);
-    });
+    //     functions.requestToBorrow(user.username, friend).then(() => {
+    //       setIsFriend(true);
+    //       setIsIncomingFriendRequest(false);
+    //       setUpdated(1);
+  };
 
   const handleAddToWishlist = () => {
     functions
@@ -54,7 +53,6 @@ const AddBookScreen = ({ route }) => {
       .catch((err) => {
         setError("Error posting book to wishlist");
       });
-
   };
 
   return (
