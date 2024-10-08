@@ -143,6 +143,24 @@ function getLendableFriends(username: string) {
     });
 }
 
+function getBorrowingList(username: string) {
+  return axios
+    .get(
+      `https://hosting-api-yiyu.onrender.com/api/users/${username}/borrowing`
+    )
+    .then((books) => {
+      return books.data;
+    });
+}
+
+function getLendingList(username: string) {
+  return axios
+    .get(`https://hosting-api-yiyu.onrender.com/api/users/${username}/lending`)
+    .then((books) => {
+      return books.data;
+    });
+}
+
 const functions = {
   getLibrary,
   getWishlist,
@@ -160,6 +178,8 @@ const functions = {
   getUser,
   deleteFriend,
   getLendableFriends,
+  getBorrowingList,
+  getLendingList,
 };
 
 export default functions;
