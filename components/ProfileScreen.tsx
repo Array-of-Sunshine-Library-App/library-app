@@ -4,10 +4,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { Button } from "react-native-elements";
 import { getAllUsers } from "../axiosRequest";
+import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
 const ProfileScreen = () => {
-  const { user, setUser } = useContext(UserContext);
+
   const [isLogIn, setLogIn] = useState(true);
   const [inputUsername, setInputUsername] = useState("");
   const [isIncorrectUser, setIsIncorrectUser] = useState(false);
@@ -15,6 +16,10 @@ const ProfileScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isEmptyInput, setIsEmptyInput] = useState(false);
   const [error, setError] = useState(null);
+  const { user, setUser } = useContext(UserContext);
+  const navigation = useNavigation();
+
+
   console.log(user.username);
 
   const handlePressLogIn = () => {
@@ -37,13 +42,14 @@ const ProfileScreen = () => {
       setIsEmptyInput(true);
     }
   };
-  function handlePressLogOut() {
+  const  handlePressLogOut = () => {
     console.log("Log out");
     setLogIn(false);
   }
-  function handlePressRegister() {
+  const  handlePressRegister = () => {
     console.log("Register");
     setLogIn(false);
+    navigation.navigate("New User")
   }
   useEffect(() => {
     axios
@@ -56,6 +62,7 @@ const ProfileScreen = () => {
       })
       .catch((err: any) => {
         console.log("Error getting users->", err);
+        setError(err)
       });
   }, [user]);
 
@@ -82,6 +89,7 @@ const ProfileScreen = () => {
             {isEmptyInput && <Text> It is empty. Please enter username</Text>}
             {isIncorrectUser && <Text> User incorrect. Try again</Text>}
           <Button title="Log In" onPress={handlePressLogIn} />
+          <Button title="Register" onPress={handlePressRegister} />
         </View>
       )}
     </View>
