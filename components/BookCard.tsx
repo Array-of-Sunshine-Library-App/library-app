@@ -23,7 +23,7 @@ type BookCardProps = {
 
 let booksPerRow = 4;
 
-const BookCard = ({ isLoaded, book, page }: BookCardProps) => {
+const BookCard = ({ isLoaded, book, page, ownerUsername }: BookCardProps) => {
   const navigation = useNavigation();
   const [cardWidth, setCardWidth] = useState(0);
   const [cardHeight, setCardHeight] = useState(0);
@@ -42,7 +42,7 @@ const BookCard = ({ isLoaded, book, page }: BookCardProps) => {
           ? () =>
               navigation.navigate(
                 page === "explore" ? "Add a book" : "My book progress",
-                { book }
+                { book, ownerUsername }
               )
           : null
       }

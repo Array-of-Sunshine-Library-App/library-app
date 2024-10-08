@@ -12,8 +12,8 @@ const FriendScreen = ({ route }) => {
   useEffect(() => {
     functions
       .getLendableFriends(friend.username)
-      .then((book) => {
-        setBooks(book.data);
+      .then((result) => {
+        setBooks(result.data);
         setIsLoaded(true);
       })
       .catch((err) => {
@@ -23,12 +23,13 @@ const FriendScreen = ({ route }) => {
   return (
     <View style={{ width: "100%", height: "100%" }}>
       <View style={styles.usernameContainer}>
-        <Text style={styles.usernameText}>{friend.name}</Text>
+        <Text style={styles.usernameText}>{friend.username}</Text>
       </View>
       <View>
         {isLoaded ? (
           <MainBooksContainer
             page={"explore"}
+            ownerUsername={friend.username}
             books={books}
             isLoaded={isLoaded}
           />

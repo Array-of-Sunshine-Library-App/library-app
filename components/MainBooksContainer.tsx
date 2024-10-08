@@ -13,6 +13,7 @@ const MainBooksContainer = ({
   page,
   books,
   isLoaded,
+  ownerUsername,
 }: MainBooksContainerProps) => {
   //const [books, setBooks] = useState<{ id: number; coverURL: string }[]>([]);
 
@@ -22,7 +23,12 @@ const MainBooksContainer = ({
         data={isLoaded ? books : Array(24).fill({})}
         keyExtractor={(item) => item.bookId.toString()}
         renderItem={({ item }) => (
-          <BookCard isLoaded={isLoaded} book={item} page={page} />
+          <BookCard
+            isLoaded={isLoaded}
+            book={item}
+            page={page}
+            ownerUsername={ownerUsername}
+          />
         )}
         numColumns={page === "explore" ? 3 : 4}
         ListHeaderComponent={null}
