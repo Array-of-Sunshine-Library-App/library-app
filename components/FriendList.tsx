@@ -14,7 +14,7 @@ const FriendList = () => {
     functions.getFriends(user.username).then((request: any) => {
       setUsers(request.data);
     });
-  }, [users]);
+  }, []);
 
   return (
     <View style={{ width: "100%", height: "100%" }}>
