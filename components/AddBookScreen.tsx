@@ -12,8 +12,12 @@ const AddBookScreen = ({ route }) => {
   const { user } = useContext(UserContext);
   const [error, setError] = useState(null);
 
+  const [isRequested, setIsRequested] = useState(false);
+
+
   const { setAddBook } = useContext(BookAddContext);
-  const [isRequested, setIsRequested] = useState;
+  
+
 
 
   const navigation = useNavigation();
@@ -41,12 +45,16 @@ const AddBookScreen = ({ route }) => {
       });
   };
 
-  // const handleSendRequest = () => {
-  //   //     functions.requestToBorrow(user.username, friend).then(() => {
-  //   //       setIsFriend(true);
-  //   //       setIsIncomingFriendRequest(false);
-  //   //       setUpdated(1);
-  // };
+  const handleSendRequest = () => {
+    functions
+      .postBookBorrowRequest(user.username, book.id)
+      .then((response: any) => {
+        setIsRequested(true);
+      })
+      .catch((err: any) => {
+        setError("Error sending borrow request");
+      });
+  };
 
   const handleAddToWishlist = () => {
     functions
@@ -68,8 +76,10 @@ const AddBookScreen = ({ route }) => {
       {book.isLendable ? (
         <>
           <View style={styles.requestToBorrowContainer}>
-            <Pressable style={styles.actionButton}>
-              <Text style={styles.pressableText}>Request to borrow</Text>
+            <Pressable style={styles.actionButton} onPress={handleSendRequest}>
+              <Text style={styles.pressableText}>
+                {isRequested ? "Requested!" : "Request to borrow"}
+              </Text>
             </Pressable>
           </View>
         </>
