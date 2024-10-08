@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Text, View, TextInput } from "react-native";
+import { Text, View, TextInput, SafeAreaView } from "react-native";
 import { UserContext } from "../contexts/UserContext";
 import { Button } from "react-native-elements";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
+import { StyleSheet } from "react-native";
 
 const RegisterNewUser = () => {
   const { user, setUser } = useContext(UserContext);
@@ -70,53 +71,104 @@ const RegisterNewUser = () => {
         });
     }
   };
+
   const handleBackRegistration = () => {
+    setIsRegistered(false);
     navigation.navigate("Library");
   };
   return (
-    <View>
-      <Text>New User Registration</Text>
+    <SafeAreaView style={styles.section}>
+      <Text style={styles.title}>New User Registration</Text>
       {!isRegistered && (
         <View>
           {isEmptyField && (
-            <Text>All fields are required. No empty inputs please</Text>
+            <Text style={styles.textError}>All fields are required. No empty inputs please</Text>
           )}
-          {!isValidForm && <Text>The input is invalid</Text>}
+          {!isValidForm && <Text style={styles.textError}>The input is invalid</Text>}
           <View>
-            <Text> Enter First Name:</Text>
-            <TextInput
-              placeholder="..."
+            <Text style={styles.text}> Enter First Name:</Text>
+            <TextInput style={styles.inputText} 
+              placeholder="here..."
               value={inputName}
               onChangeText={(newName) => setInputName(newName)}
             />
-            <Text> Enter Surname:</Text>
-            <TextInput
-              placeholder="..."
+            <Text style={styles.text}> Enter Surname:</Text>
+            <TextInput style={styles.inputText} 
+              placeholder="here.."
               value={inputSurname}
               onChangeText={(newSurname) => setInputSurname(newSurname)}
             />
-            <Text> Enter Username:</Text>
-            <TextInput
-              placeholder="..."
+            <Text style={styles.text}> Enter Username:</Text>
+            <TextInput style={styles.inputText} 
+              placeholder="here..."
               value={inputUsername}
               onChangeText={(newUsername) => setInputUsername(newUsername)}
             />
 
-            <Button title="Register" onPress={handlePressRegistration} />
+            <Button style={styles.button} title="Register" onPress={handlePressRegistration} />
           </View>
         </View>
       )}
       {isRegistered && (
-        <View>
-          {" "}
-          <Button
+        <View style={styles.section}>
+         <Text> {" "} </Text>
+          <Button style={styles.button}
             title="Registration complete"
             onPress={handleBackRegistration}
           />
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
+
+
+const styles = StyleSheet.create({
+  section: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding : 10,
+    borderColor: 'black',
+    margin : 5,
+  },
+  button : {
+    width : 200,
+    height: 90,
+    margin: 10,
+    textAlign : "center",
+  },
+  title:{
+    margin: 5,
+    fontSize: 40,
+    fontWeight: 'bold',
+    padding: 20,
+    fontFamily: 'Georgia', 
+    fontStyle: 'italic',
+    textAlign : "center",
+  },
+  text : {
+    fontSize: 30,
+    fontFamily: 'Georgia', 
+    fontStyle: 'italic',
+    margin : 5,
+    textAlign : "center",
+    alignItems : "center",
+  },
+  textError : {
+    fontSize: 20,
+    margin : 5,
+    color: "red"
+  },
+  inputText : {
+    margin : 5,
+    width: 300,
+    height: 60,
+    fontSize: 25,
+    borderColor: 'gray',
+    borderWidth: 1,
+  },
+
+});
 
 export default RegisterNewUser;
