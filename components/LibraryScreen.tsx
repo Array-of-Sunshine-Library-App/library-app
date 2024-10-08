@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import MainBooksContainer from "./MainBooksContainer";
 import FloatingAddButton from "./FloatingAddButton";
 import { UserContext } from "../contexts/UserContext";
+import { BookAddContext } from "../contexts/BookAddContext";
 import { getLibrary } from "../axiosRequests.ts";
 import axios from "axios";
 
@@ -10,6 +11,7 @@ const LibraryScreen = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
   const { user } = useContext(UserContext);
+  const { addBook } = useContext(BookAddContext);
 
   useEffect(() => {
     axios
@@ -25,7 +27,7 @@ const LibraryScreen = () => {
         setError("Failed to fetch books");
         console.log("error occured fetching library", err);
       });
-  }, []);
+  }, [user, addBook]);
   return (
     <>
       <MainBooksContainer page={"library"} books={books} isLoaded={true} />

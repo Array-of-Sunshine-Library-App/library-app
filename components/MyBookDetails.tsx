@@ -15,10 +15,12 @@ import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 import { UserContext } from "../contexts/UserContext";
 import functions from "../axiosRequests";
+import { BookAddContext } from "../contexts/BookAddContext";
 
 const MyBookDetails = ({ route }) => {
   const { book } = route.params;
   const { user } = useContext(UserContext);
+  const { setAddBook } = useContext(BookAddContext);
   const { postLibrary, deleteLibraryBook, postWishlist } = functions;
   const navigation = useNavigation();
 
@@ -64,6 +66,7 @@ const MyBookDetails = ({ route }) => {
           setError("Error patching book in library");
         });
     }
+    setAddBook(book);
   };
 
   const handleDelete = () => {
@@ -92,6 +95,7 @@ const MyBookDetails = ({ route }) => {
       })
       .then(() => {
         setModalVisible(false);
+        setAddBook(book);
         navigation.navigate("Wish List");
       })
       .catch(() => {
