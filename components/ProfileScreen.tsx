@@ -1,10 +1,8 @@
 import { Text, View, TextInput } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
-
 import { UserContext } from "../contexts/UserContext";
 import { Button } from "react-native-elements";
-import { getAllUsers } from "../axiosRequest";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
@@ -21,10 +19,7 @@ const ProfileScreen = () => {
   const navigation = useNavigation();
 
 
-  console.log(user.username);
-
   const handlePressLogIn = () => {
-    console.log("chilling in log in", inputUsername, typeof inputUsername);
     if (inputUsername.length > 0) {
       setIsEmptyInput(false);
       listUsers.forEach((userL: any) => {
@@ -48,7 +43,6 @@ const ProfileScreen = () => {
     setLogIn(false);
   }
   const  handlePressRegister = () => {
-    console.log("Register");
     setLogIn(false);
     navigation.navigate("New User")
   }
@@ -56,7 +50,6 @@ const ProfileScreen = () => {
     axios
       .get(`https://hosting-api-yiyu.onrender.com/api/users/allusers`)
       .then((users: any) => {
-        console.log(users.data);
         setListUsers(users.data);
         setIsLoading(false);
         return users;
@@ -74,7 +67,7 @@ const ProfileScreen = () => {
     <View style={styles.section}>
       <Text style={styles.title}>User Profile</Text>
       {isLogIn && (
-        <View >
+        <View style={styles.section}>
           <Text style={styles.text} >Username: {user.username}</Text>
           <Text style={styles.text} >Name: {user.name}</Text>
           <View style={styles.butsection}> <Button style={styles.button}  title="Log Out" onPress={handlePressLogOut} />
@@ -82,15 +75,17 @@ const ProfileScreen = () => {
         </View>
       )}
       {!isLogIn && (
-        <View>
+        <View style={styles.section}>
           <Text style={styles.text} > Enter username:</Text>
-          <TextInput style={styles.text} 
-            placeholder="..."
+          <TextInput style={styles.inputText} 
+            placeholder="here..."
             value={inputUsername}
             onChangeText={(newUsername) => setInputUsername(newUsername)}
           />
-            {isEmptyInput && <Text  style={styles.textError}> It is empty. Please enter username</Text>}
-            {isIncorrectUser && <Text  style={styles.textError}> User incorrect. Try again</Text>}
+            {isEmptyInput && 
+            <Text  style={styles.textError}> It is empty. Please enter username</Text>}
+            {isIncorrectUser && 
+            <Text style={styles.textError}> User incorrect. Try again</Text>}
             <View style={styles.butsection}><Button style={styles.button} title="Log In" onPress={handlePressLogIn} />
           <Button style={styles.button}  title="Register" onPress={handlePressRegister} /> </View>
        </View>
@@ -104,42 +99,48 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
-    padding : 15,
+    padding : 10,
     borderColor: 'black',
-    borderRadius: 35 
+    margin : 5,
   },
   button : {
     width : 200,
     height: 90,
-    //backgroundColor: '#00aeef',
-      borderColor: 'black',
-      borderRadius: 35,
-      margin: 10
+    margin: 10,
   },
   title:{
+    margin: 5,
     fontSize: 40,
     fontWeight: 'bold',
     padding: 20,
     fontFamily: 'Georgia', 
-    fontStyle: 'italic'
+    fontStyle: 'italic',
   },
   text : {
-    fontSize: 35,
+    fontSize: 25,
     fontFamily: 'Georgia', 
-    fontStyle: 'italic'
+    fontStyle: 'italic',
+    margin : 5,
+    textAlign : "center"
   },
   textError : {
-    fontSize: 20
+    fontSize: 20,
+    margin : 5,
+    color : 'red',
   },
   inputText : {
-    borderColor: "black",
-    borderRightColor: "black"
+    margin : 5,
+    width: 300,
+    height: 60,
+    fontSize: 25,
+    borderColor: 'gray',
+    borderWidth: 1,
   },
   butsection : {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
+    margin : 5,
   }
 });
 

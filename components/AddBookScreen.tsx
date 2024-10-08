@@ -4,13 +4,21 @@ import BookBasicDetails from "./BookBasicDetails";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { UserContext } from "../contexts/UserContext";
+import { BookAddContext } from "../contexts/BookAddContext";
 import functions from "../axiosRequests";
 
 const AddBookScreen = ({ route }) => {
   const { book } = route.params;
   const { user } = useContext(UserContext);
   const [error, setError] = useState(null);
+
   const [isRequested, setIsRequested] = useState(false);
+
+
+  const { setAddBook } = useContext(BookAddContext);
+  
+
+
 
   const navigation = useNavigation();
 
@@ -52,6 +60,7 @@ const AddBookScreen = ({ route }) => {
     functions
       .postWishlist(user.username, book)
       .then((response: any) => {
+        setAddBook(book);
         navigation.navigate("Wish List");
       })
       .catch((err) => {
