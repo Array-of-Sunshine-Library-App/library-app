@@ -8,11 +8,12 @@ const FriendScreen = ({ route }) => {
   const { friend } = route.params;
   const [books, setBooks] = useState<any[]>([]);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
   useEffect(() => {
     functions
       .getLendableFriends(friend.username)
-      .then((books) => {
-        setBooks(books);
+      .then((book) => {
+        setBooks(book.data);
         setIsLoaded(true);
       })
       .catch((err) => {
@@ -27,7 +28,7 @@ const FriendScreen = ({ route }) => {
       <View style={{ width: "100%", height: "100%" }}>
         {isLoaded ? (
           <MainBooksContainer
-            page={"friend"}
+            page={"wishlist"}
             books={books}
             isLoaded={isLoaded}
           />

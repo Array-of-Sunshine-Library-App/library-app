@@ -12,7 +12,7 @@ import functions from "../axiosRequests";
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 
-const FriendCard = ({ friend, page, users, setUsers }) => {
+const FriendCard = ({ friend, page, setUpdated }) => {
   const { user } = useContext(UserContext);
   const [isFriend, setIsFriend] = useState(false);
   const [isOutgoingFriendRequest, setIsOutgoingFriendRequest] = useState(false);
@@ -48,21 +48,21 @@ const FriendCard = ({ friend, page, users, setUsers }) => {
     functions.acceptFriendRequest(user.username, friend).then(() => {
       setIsFriend(true);
       setIsIncomingFriendRequest(false);
-      setUsers([]);
+      setUpdated(1);
     });
   };
 
   const handleDeclineFriendRequest = () => {
     functions.deleteFriendRequest(user.username, friend.username).then(() => {
       setIsIncomingFriendRequest(false);
-      setUsers([]);
+      setUpdated(2);
     });
   };
 
   const handleDeleteFriend = () => {
     functions.deleteFriend(user.username, friend.username).then(() => {
       setIsFriend(false);
-      setUsers([]);
+      setUpdated(3);
     });
   };
 

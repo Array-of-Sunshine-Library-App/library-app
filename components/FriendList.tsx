@@ -9,12 +9,12 @@ const FriendList = () => {
   const { user } = useContext(UserContext);
   const [users, setUsers] = useState<any[]>([]);
   const [isFriend, setIsFriend] = useState(false);
-
+  const [updated, setUpdated] = useState<number>(0);
   useEffect(() => {
     functions.getFriends(user.username).then((request: any) => {
       setUsers(request.data);
     });
-  }, []);
+  }, [updated]);
 
   return (
     <View style={{ width: "100%", height: "100%" }}>
@@ -26,8 +26,7 @@ const FriendList = () => {
             key={index}
             friend={item}
             page={"friend"}
-            users={users}
-            setUsers={setUsers}
+            setUpdated={setUpdated}
           />
         )}
         numColumns={1}
