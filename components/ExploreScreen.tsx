@@ -16,7 +16,7 @@ const ExploreScreen = () => {
       try {
         setIsLoaded(false);
         const response = await axios.get(
-          `https://www.googleapis.com/books/v1/volumes?q=${searchQuery}&key=${API_KEY}&maxResults=40`
+          `https://www.googleapis.com/books/v1/volumes?q=${searchQuery}&key=AIzaSyCrAKfdwMbSAbNyZ9_TLTlj-H7Q-n9Ixrc&maxResults=40`
         );
         const mappedBooks = response.data.items
           .filter((item: any) => item.volumeInfo)
