@@ -34,6 +34,10 @@ const AppHeader = ({ returnTo }) => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.headerContainer}>
+        <Image
+          source={require("../assets/Readshare-logo.png")}
+          style={styles.logoImage}
+        />
         <Pressable
           style={[styles.profilePressable, { opacity: returnTo ? 1 : 0 }]}
           pointerEvents={returnTo ? "auto" : "none"}
@@ -46,10 +50,6 @@ const AppHeader = ({ returnTo }) => {
             />
           </View>
         </Pressable>
-        <Image
-          source={require("../assets/Readshare-logo.png")}
-          style={styles.logoImage}
-        />
         <Pressable onPress={() => navigation.navigate("Profile")}>
           <View style={iconStyles}>
             <Image source={profileIcon} style={styles.iconImage} />
@@ -70,11 +70,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 15,
+    paddingRight: 15,
     paddingBottom: 0,
     paddingTop: 0,
     backgroundColor: "transparent",
-    marginTop: 25,
+    marginTop: 35,
+    marginLeft: 0,
   },
   shadowContainer: {
     height: 4,
@@ -95,11 +96,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   profilePressable: {
-    paddingLeft: 4,
-    paddingRight: 4,
+    paddingLeft: 2,
+    paddingRight: 2,
     backgroundColor: "transparent",
-    borderColor: "lightgrey",
-    borderWidth: 2,
+    borderColor: "black",
+    borderWidth: 1.5,
     borderRadius: 5,
   },
   pressText: {
@@ -112,11 +113,12 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   logoImage: {
-    width: "70%",
+    width: "55%",
     maxWidth: 250,
     height: "auto",
     aspectRatio: 200 / 75,
     resizeMode: "contain",
+    marginLeft: 8,
   },
 });
 
