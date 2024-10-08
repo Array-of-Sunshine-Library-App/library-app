@@ -3,12 +3,14 @@ import FloatingAddButton from "./FloatingAddButton";
 import MainBooksContainer from "./MainBooksContainer";
 import axios from "axios";
 import { UserContext } from "../contexts/UserContext";
+import { BookAddContext } from "../contexts/BookAddContext";
 
 const WishListScreen = () => {
   const [books, setBooks] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
   const { user } = useContext(UserContext);
+  const { addBook } = useContext(BookAddContext);
 
   useEffect(() => {
     axios
@@ -24,7 +26,7 @@ const WishListScreen = () => {
         setError("Failed to fetch books");
         console.log("error occured fetching library", err);
       });
-  }, []);
+  }, [user, addBook]);
   return (
     <>
       <MainBooksContainer page={"wishlist"} books={books} isLoaded={true} />
