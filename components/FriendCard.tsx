@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   text :{
-    fontSize : 18,
+    fontSize : 15,
     textAlign : "center",
     color : "red",
   }

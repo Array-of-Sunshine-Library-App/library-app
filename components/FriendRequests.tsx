@@ -54,15 +54,17 @@ const styles = StyleSheet.create({
     color: "black",
   },
   title: {
-    fontSize : 30,
+    fontSize : 18,
     textAlign : "center",
+    color: "grey",
+    
   },
   text : {
-    fontSize : 18,
+    fontSize : 15,
     color: "gray"
   },
   loading : {
-    fontSize : 18,
+    fontSize : 16,
     color : "gray",
     textAlign : "center",
   }
