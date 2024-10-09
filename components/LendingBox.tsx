@@ -1,24 +1,41 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, StyleSheet, Pressable, Text } from "react-native";
+import functions from "../axiosRequests";
+import { useNavigation } from "@react-navigation/native";
+import { UserContext } from "../contexts/UserContext";
+import { HomeUpdateContext } from "../contexts/HomeUpdateContext";
 
-const LendingBox = ({ book }) => {
-  const [currentlyBorrowing, setCurrentlyBorrowing] = useState(false);
-  const borrower = "Mr Adams";
+const LendingBox = ({ book, borrower, lent }) => {
+  const { user } = useContext(UserContext);
+  const { setHomeUpdate } = useContext(HomeUpdateContext);
+  const [currentlyBorrowing, setCurrentlyBorrowing] = useState(lent);
   const date = "3 months";
+  const navigation = useNavigation();
 
   const handleConfirmBorrowRequest = () => {
-    //api call goes here
-    setCurrentlyBorrowing(true);
+    functions
+      .acceptBookBorrowRequest(user.username, book.bookId, borrower)
+      .then(() => {
+        setCurrentlyBorrowing(true);
+        setHomeUpdate(new Date());
+        navigation.navigate("Home");
+      });
   };
 
   const handleRejectBorrowRequest = () => {
-    //api call goes here
-    //routing goes here
+    functions.deleteBookBorrowRequest(user.username, book.bookId).then(() => {
+      setHomeUpdate(new Date());
+      navigation.navigate("Home");
+    });
   };
 
   const handleReturnBookAfterBorrow = () => {
-    //api call goes here
-    //routing goes here
+    functions
+      .returnBookAfterBorrow(borrower, user.username, book.bookId)
+      .then(() => {
+        setHomeUpdate(new Date());
+        navigation.navigate("Home");
+      });
   };
 
   return (

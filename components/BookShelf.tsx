@@ -1,5 +1,5 @@
-import React from "react";
-import { ScrollView, Text, StyleSheet, View } from "react-native";
+import React, { useContext } from "react";
+import { ScrollView, Text, StyleSheet, View, Dimensions } from "react-native";
 import BookCard from "./BookCard";
 
 type BookShelfProps = {
@@ -8,13 +8,11 @@ type BookShelfProps = {
 };
 
 const BookShelf = ({ books, page }: BookShelfProps) => {
-  let comment = "";
-  if (page === "request") comment = "Someone wants to borrow this!";
   return (
     <View style={styles.outerContainer}>
       <View style={styles.container}>
         {books.length === 0 ? (
-          <Text style={styles.comment}>
+          <Text style={styles.placeholder}>
             {page === "borrowing"
               ? "You're not currently borrowing any books."
               : "You're not currently lending any books."}
@@ -28,7 +26,12 @@ const BookShelf = ({ books, page }: BookShelfProps) => {
             {books.map((book) => (
               <View style={styles.bookContainer} key={book.bookId}>
                 <BookCard isLoaded={true} book={book} page={page} />
-                {comment ? <Text style={styles.comment}>{comment}</Text> : null}
+                {page === "request" ? (
+                  <Text style={styles.comment}>
+                    {Object.keys(book.requests).join(" & ")} wants to borrow
+                    this!
+                  </Text>
+                ) : null}
               </View>
             ))}
           </ScrollView>
@@ -37,6 +40,8 @@ const BookShelf = ({ books, page }: BookShelfProps) => {
     </View>
   );
 };
+
+const { width } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   outerContainer: {
@@ -61,6 +66,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   comment: {
+    marginVertical: 5,
+    fontSize: 12,
+    color: "grey",
+    textAlign: "center",
+    maxWidth: width / 3 - 10,
+  },
+  placeholder: {
     marginVertical: 5,
     fontSize: 12,
     color: "grey",

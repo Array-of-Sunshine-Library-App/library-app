@@ -205,13 +205,13 @@ function getBorrowRequests(username: string, bookId: string) {
       return books;
     });
 }
-function getAllBorrowRequests(username: string, bookId: string) {
+function getAllBorrowRequests(username: string) {
   return axios
     .get(
       `https://hosting-api-yiyu.onrender.com/api/users/${username}/requestborrow`
     )
     .then((books) => {
-      return books;
+      return books.data;
     });
 }
 
