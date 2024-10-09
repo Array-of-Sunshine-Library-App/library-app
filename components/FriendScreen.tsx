@@ -7,14 +7,17 @@ const FriendScreen = ({ route }: any) => {
   const { friend } = route.params;
   const [books, setBooks] = useState<any[]>([]);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [lendableNumber, setLendableNumber] = useState<number>();
 
   useEffect(() => {
     setBooks([]);
     setIsLoaded(false);
+    //setLendableNumber(0);
 
     functions
       .getLendableFriends(friend.username)
       .then((result) => {
+        setLendableNumber(result.data.length);
         setBooks(result.data);
         setIsLoaded(true);
       })
@@ -27,8 +30,8 @@ const FriendScreen = ({ route }: any) => {
     <View style={{ width: "100%", height: "100%" }}>
       <View style={styles.usernameContainer}>
         <Text style={styles.subtitleText}>
-          You can borrow these books from{" "}
-          <Text style={styles.friendUsername}>{friend.username}</Text>!
+          You can borrow {lendableNumber} books from{" "}
+          <Text style={styles.friendUsername}>{friend.username}</Text>
         </Text>
       </View>
       <View style={{ width: "100%", height: "100%" }}>
@@ -63,8 +66,11 @@ const styles = StyleSheet.create({
   },
   subtitleText: {
     color: "black",
-    textAlign: "center",
+    textAlign: "left",
     marginVertical: 10,
+
+    fontSize: 16,
+    fontWeight: "bold",
   },
   friendUsername: {
     color: "#f17127",

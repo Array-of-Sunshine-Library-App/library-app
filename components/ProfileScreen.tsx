@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   button: {
-    width: 200,
+    width: 150,
     height: 90,
     margin: 10,
     padding: 5,
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     margin: 5,
     fontSize: 20,
     fontWeight: "bold",
-    color : "gray",
+    color: "gray",
     padding: 20,
   },
   text: {
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   butsection: {
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     margin: 5,
   },
 });

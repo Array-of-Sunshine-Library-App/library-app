@@ -26,7 +26,7 @@ const FriendList = ({ updated, setUpdated }: any) => {
   }
   return (
     <View style={{ width: "100%", height: "100%" }}>
-      <Text style={styles.title}>Your friends:</Text>
+      <Text style={styles.title}>Your Friends</Text>
       {friends.length === 0 && <Text style={styles.text}>No friends</Text>}
       <FlatList
         data={friends}
@@ -50,18 +50,20 @@ const styles = StyleSheet.create({
     color: "black",
   },
   title: {
-    fontSize: 20,
-    textAlign: "center",
-    color: "grey",
+    fontSize: 16,
+    textAlign: "left",
+    color: "black",
     marginTop: 35,
+    paddingLeft: 10,
+    fontWeight: "bold",
   },
   text: {
     fontSize: 15,
-    color: "gray",
+    color: "grey",
   },
   loading: {
     fontSize: 16,
-    color: "gray",
+    color: "grey",
     textAlign: "center",
   },
 });

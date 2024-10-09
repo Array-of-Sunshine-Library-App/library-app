@@ -194,11 +194,17 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 5,
     backgroundColor: "white",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 3,
   },
 
   name: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
+    paddingTop: 9,
   },
 
   button: {
