@@ -16,6 +16,7 @@ const FriendScreen = ({ route }: any) => {
     functions
       .getLendableFriends(friend.username)
       .then((result) => {
+        console.log("!!! result.data:", result.data);
         setBooks(result.data);
         setIsLoaded(true);
       })
@@ -24,12 +25,26 @@ const FriendScreen = ({ route }: any) => {
       });
   }, [friend.username]);
 
+  //   functions
+  //     .getLibrary(friend.username)
+  //     .then((result) => {
+  //       console.log("!!! result.data:", result.data);
+  //       setBooks(result.data);
+  //       setIsLoaded(true);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, [friend.username]);
+
   return (
-    <View style={{ width: "100%", height: "100%" }}>
-      <View style={styles.usernameContainer}>
+    <View style={{ width: "100%", height: "100%", backgroundColor: "green" }}>
+      <View style={[styles.usernameContainer, { backgroundColor: "yellow" }]}>
         <Text style={styles.usernameText}>{friend.username}</Text>
       </View>
-      <View style={{ width: "100%", height: "100%" }}>
+      <View
+        style={{ width: "100%", height: "100%", backgroundColor: "lightblue" }}
+      >
         {isLoaded ? (
           <MainBooksContainer
             page={"explore"}
