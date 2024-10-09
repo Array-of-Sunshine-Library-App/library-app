@@ -30,7 +30,7 @@ const FriendRequests = ({ updated, setUpdated }: any) => {
   return (
     <View>
       <View>
-        <Text style={styles.title}>Friend requests:</Text>
+        <Text style={styles.title}>Friend Requests</Text>
       </View>
       {friendRequests.length === 0 && (
         <Text style={styles.text}>You have no new friend requests</Text>
@@ -57,15 +57,18 @@ const styles = StyleSheet.create({
     color: "black",
   },
   title: {
-    fontSize: 20,
-    textAlign: "center",
-    color: "grey",
+    textAlign: "left",
+    color: "black",
+    paddingTop: 15,
+    fontSize: 16,
+    fontWeight: "bold",
+    paddingLeft: 10,
   },
   text: {
     fontSize: 15,
     color: "gray",
-    textAlign: "center",
-    margin: 15,
+    textAlign: "left",
+    margin: 9,
   },
   loading: {
     fontSize: 16,
