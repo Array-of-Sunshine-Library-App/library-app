@@ -19,7 +19,7 @@ type BookCardProps = {
     thumbnail: string;
   };
   page: string;
-  ownerUsername : string;
+  ownerUsername: string;
 };
 
 let booksPerRow = 4;
@@ -36,15 +36,25 @@ const BookCard = ({ isLoaded, book, page, ownerUsername }: BookCardProps) => {
     setCardHeight((width / booksPerRow - 10) * 1.5);
   }, [page]);
 
+  let destination;
+  switch (page) {
+    case "explore":
+    case "borrowing":
+      destination = "Add a book";
+      break;
+    case "request":
+    case "lending":
+      destination = "Lending Screen";
+      break;
+    default:
+      destination = "My book progress";
+  }
+
   return (
     <Pressable
       onPress={
         isLoaded
-          ? () =>
-              navigation.navigate(
-                page === "explore" ? "Add a book" : "My book progress",
-                { book, ownerUsername }
-              )
+          ? () => navigation.navigate(destination, { book, ownerUsername })
           : null
       }
     >
@@ -56,7 +66,7 @@ const BookCard = ({ isLoaded, book, page, ownerUsername }: BookCardProps) => {
             <ImageBackground
               source={require("../assets/book-placeholder.png")}
               style={styles.bookplaceholder}
-              resizeMode="cover" // or "contain", based on your preference
+              resizeMode="cover"
             >
               <View>
                 <Text style={styles.title}>{book.title}</Text>
