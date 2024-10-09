@@ -12,16 +12,15 @@ import functions from "../axiosRequests";
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 
-const FriendCard = ({ friend, page, updated, setUpdated} : any) => {
+const FriendCard = ({ friend, page, updated, setUpdated }: any) => {
   const { user } = useContext(UserContext);
   const [isFriend, setIsFriend] = useState(false);
   const [isOutgoingFriendRequest, setIsOutgoingFriendRequest] = useState(false);
   const [isIncomingFriendRequest, setIsIncomingFriendRequest] = useState(false);
-  const [error, setError] = useState("")
-  const [removedFromList, setRemovedFromList] = useState(false)
+  const [error, setError] = useState("");
+  const [removedFromList, setRemovedFromList] = useState(false);
 
   const navigation = useNavigation();
-  
 
   useEffect(() => {
     if (page === "friend") {
@@ -48,51 +47,56 @@ const FriendCard = ({ friend, page, updated, setUpdated} : any) => {
   };
 
   const handleAcceptFriendRequest = () => {
-    setRemovedFromList(true)
-    functions.acceptFriendRequest(user.username, friend).then(() => {
-      setIsFriend(true);
-      setIsIncomingFriendRequest(false);
-      setUpdated(2);
-      console.log(updated)
-    })
-    .catch((err) => {
-      setError(err)
-      console.log("Error accepting friend request", err)
-      setRemovedFromList(false)
-    })
+    setRemovedFromList(true);
+    functions
+      .acceptFriendRequest(user.username, friend)
+      .then(() => {
+        setIsFriend(true);
+        setIsIncomingFriendRequest(false);
+        setUpdated(2);
+        console.log(updated);
+      })
+      .catch((err) => {
+        setError(err);
+        console.log("Error accepting friend request", err);
+        setRemovedFromList(false);
+      });
   };
 
   const handleDeclineFriendRequest = () => {
-    setRemovedFromList(true)
-    functions.deleteFriendRequest(user.username, friend.username).then(() => {
-      setIsIncomingFriendRequest(false);
-      //setUpdated(2);
-    })
-    .catch((err) => {
-      setError(err)
-      console.log("Error declining friend request ", err)
-      setRemovedFromList(false)
-    })
+    setRemovedFromList(true);
+    functions
+      .deleteFriendRequest(user.username, friend.username)
+      .then(() => {
+        setIsIncomingFriendRequest(false);
+        //setUpdated(2);
+      })
+      .catch((err) => {
+        setError(err);
+        console.log("Error declining friend request ", err);
+        setRemovedFromList(false);
+      });
   };
 
   const handleDeleteFriend = () => {
-    setRemovedFromList(true)
-    functions.deleteFriend(user.username, friend.username).then(() => {
-      setIsFriend(false);
-      //setUpdated(3);
-      setRemovedFromList(true)
-    })
-    .catch((err : any) => {
-      setError(err)
-      console.log("Error deleting friend:", err)
-      setRemovedFromList(false)
-    })
+    setRemovedFromList(true);
+    functions
+      .deleteFriend(user.username, friend.username)
+      .then(() => {
+        setIsFriend(false);
+        //setUpdated(3);
+        setRemovedFromList(true);
+      })
+      .catch((err: any) => {
+        setError(err);
+        console.log("Error deleting friend:", err);
+        setRemovedFromList(false);
+      });
   };
-if(removedFromList){
-  return (<></>)
-}
+  if (removedFromList) {
+    return <></>;
+  }
   return (
-   
     <Pressable
       onPress={
         isFriend ? () => navigation.navigate("Friend page", { friend }) : null
@@ -193,7 +197,7 @@ const styles = StyleSheet.create({
   },
 
   name: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
   },
 
@@ -212,11 +216,11 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
   },
-  text :{
-    fontSize : 15,
-    textAlign : "center",
-    color : "red",
-  }
+  text: {
+    fontSize: 15,
+    textAlign: "center",
+    color: "red",
+  },
 });
 
 export default FriendCard;

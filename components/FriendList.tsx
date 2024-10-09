@@ -5,25 +5,29 @@ import functions from "../axiosRequests";
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 
-const FriendList = ({updated, setUpdated} : any) => {
+const FriendList = ({ updated, setUpdated }: any) => {
   const { user } = useContext(UserContext);
   const [friends, setFriends] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     functions.getFriends(user.username).then((request: any) => {
       setFriends(request.data);
-      setIsLoading(false)
+      setIsLoading(false);
     });
   }, [updated, user]);
-  if(isLoading){
-    return (<View><Text style={styles.loading}>...Loading friends</Text></View>)
+  if (isLoading) {
+    return (
+      <View>
+        <Text style={styles.loading}>...Loading friends</Text>
+      </View>
+    );
   }
   return (
     <View style={{ width: "100%", height: "100%" }}>
-      <Text style={styles.title}>Your friends</Text>
-      {friends.length===0 && <Text style={styles.text}>No friends</Text>}
+      <Text style={styles.title}>Your friends:</Text>
+      {friends.length === 0 && <Text style={styles.text}>No friends</Text>}
       <FlatList
         data={friends}
         renderItem={({ item, index }) => (
@@ -46,19 +50,20 @@ const styles = StyleSheet.create({
     color: "black",
   },
   title: {
-    fontSize : 18,
-    textAlign : "center",
+    fontSize: 20,
+    textAlign: "center",
     color: "grey",
+    marginTop: 35,
   },
-  text : {
-    fontSize : 15,
-    color : "gray"
+  text: {
+    fontSize: 15,
+    color: "gray",
   },
-  loading : {
-    fontSize : 16,
-    color : "gray",
-    textAlign : "center",
-  }
+  loading: {
+    fontSize: 16,
+    color: "gray",
+    textAlign: "center",
+  },
 });
 
 export default FriendList;
