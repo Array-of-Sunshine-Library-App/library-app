@@ -10,13 +10,17 @@ const MyBookProgress = ({ route }: any) => {
   const { book, page } = route.params;
   const { deleteWishlistBook } = functions;
   const { user } = useContext(UserContext);
-  const { setAddBook } = useContext(BookAddContext);
+  const { addBook, setAddBook } = useContext(BookAddContext);
   const navigation = useNavigation();
 
   const handleDelete = () => {
     deleteWishlistBook(user.username, book.bookId)
       .then(() => {
-        setAddBook(null);
+        if (addBook === null) {
+          setAddBook(book);
+        } else {
+          setAddBook(null);
+        }
         navigation.navigate("Wish List");
       })
       .catch(() => {});
