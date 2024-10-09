@@ -8,6 +8,8 @@ type BookShelfProps = {
 };
 
 const BookShelf = ({ books, page }: BookShelfProps) => {
+  let comment = "";
+  if (page === "request") comment = "Someone wants to borrow this!";
   return (
     <View style={styles.outerContainer}>
       <View style={styles.container}>
@@ -26,7 +28,7 @@ const BookShelf = ({ books, page }: BookShelfProps) => {
             {books.map((book) => (
               <View style={styles.bookContainer} key={book.bookId}>
                 <BookCard isLoaded={true} book={book} page={page} />
-                <Text style={styles.comment}>Comment</Text>
+                {comment ? <Text style={styles.comment}>{comment}</Text> : null}
               </View>
             ))}
           </ScrollView>

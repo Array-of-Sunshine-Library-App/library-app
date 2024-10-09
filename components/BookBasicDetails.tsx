@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
   outerFrame: {
     flex: 0,
     flexDirection: "row",
+    minHeight: cardHeight + 10,
   },
   image: {
     margin: 5,
