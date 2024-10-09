@@ -18,7 +18,7 @@ const FriendRequests = ({updated, setUpdated} : any) => {
       setFriendRequests(request.data);
       setIsLoading(false)
     });
-  }, [updated]);
+  }, [updated, user]);
   
   if(isLoading){
     return (<View><Text style={styles.loading}>...Loading friend request</Text></View>)
