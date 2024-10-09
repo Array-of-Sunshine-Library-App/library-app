@@ -4,22 +4,25 @@ import FriendCard from "./FriendCard";
 import functions from "../axiosRequests";
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
+import { isEnabled } from "react-native/Libraries/Performance/Systrace";
 
-const FriendRequests = () => {
+const FriendRequests = ({updated, setUpdated} : any) => {
   const { user } = useContext(UserContext);
   const [friendRequests, setFriendRequests] = useState<any[]>([]);
-  const [updated, setUpdated] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
+    console.log(updated, "updated-> rendering RF")
+    setIsLoading(true)
     functions.getFriendRequests(user.username).then((request: any) => {
       setFriendRequests(request.data);
       setIsLoading(false)
     });
-  }, [])//[updated]);
+  }, [updated]);
   
   if(isLoading){
-    return (<View><Text style={styles.title}>...Loading friend request</Text></View>)
+    return (<View><Text style={styles.loading}>...Loading friend request</Text></View>)
   }
 
   return (
@@ -35,8 +38,11 @@ const FriendRequests = () => {
             key={index}
             friend={item}
             page={"friendRequest"}
+            updated={updated}
             setUpdated={setUpdated}
+
           />
+     
         )}
         numColumns={1}
       />
@@ -55,6 +61,11 @@ const styles = StyleSheet.create({
   text : {
     fontSize : 18,
     color: "gray"
+  },
+  loading : {
+    fontSize : 18,
+    color : "gray",
+    textAlign : "center",
   }
 });
 
