@@ -21,7 +21,7 @@ const BookBasicDetails = ({ book }: any) => {
 
 const styles = StyleSheet.create({
   outerFrame: {
-    flex: 1,
+    flex: 0,
     flexDirection: "row",
   },
   image: {
@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
   innerFrame: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "flex-end",
   },
   title: {
     fontSize: 32,

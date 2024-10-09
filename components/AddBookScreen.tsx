@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Pressable, Text, View, StyleSheet } from "react-native";
+import { Pressable, Text, View, StyleSheet, ScrollView } from "react-native";
 import BookBasicDetails from "./BookBasicDetails";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
@@ -7,7 +7,7 @@ import { UserContext } from "../contexts/UserContext";
 import { BookAddContext } from "../contexts/BookAddContext";
 import functions from "../axiosRequests";
 
-const AddBookScreen = ({ route } : any) => {
+const AddBookScreen = ({ route }: any) => {
   const { book, ownerUsername } = route.params;
 
   const { user } = useContext(UserContext);
@@ -71,31 +71,36 @@ const AddBookScreen = ({ route } : any) => {
   };
 
   return (
-    <View style={styles.page}>
-      <BookBasicDetails book={book} />
-      <Text>{book.description}</Text>
+    <ScrollView>
+      <View style={styles.page}>
+        <BookBasicDetails book={book} />
+        <Text>{book.description}</Text>
 
-      {book.isLendable ? (
-        <>
-          <View style={styles.requestToBorrowContainer}>
-            <Pressable style={styles.actionButton} onPress={handleSendRequest}>
-              <Text style={styles.pressableText}>
-                {isRequested ? "Requested!" : "Request to borrow"}
-              </Text>
-            </Pressable>
-          </View>
-        </>
-      ) : null}
+        {book.isLendable ? (
+          <>
+            <View style={styles.requestToBorrowContainer}>
+              <Pressable
+                style={styles.actionButton}
+                onPress={handleSendRequest}
+              >
+                <Text style={styles.pressableText}>
+                  {isRequested ? "Requested!" : "Request to borrow"}
+                </Text>
+              </Pressable>
+            </View>
+          </>
+        ) : null}
 
-      <View style={styles.container}>
-        <Pressable style={styles.actionButton} onPress={handleAddToWishlist}>
-          <Text style={styles.pressableText}>Add to Wishlist</Text>
-        </Pressable>
-        <Pressable style={styles.actionButton} onPress={handleAddToLibrary}>
-          <Text style={styles.pressableText}>Add to Library</Text>
-        </Pressable>
+        <View style={styles.container}>
+          <Pressable style={styles.actionButton} onPress={handleAddToWishlist}>
+            <Text style={styles.pressableText}>Add to Wishlist</Text>
+          </Pressable>
+          <Pressable style={styles.actionButton} onPress={handleAddToLibrary}>
+            <Text style={styles.pressableText}>Add to Library</Text>
+          </Pressable>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -119,8 +124,8 @@ const styles = StyleSheet.create({
   },
 
   page: {
+    flex: 1,
     padding: 20,
-    gap: 10,
   },
 
   requestToBorrowContainer: {
