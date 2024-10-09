@@ -19,7 +19,7 @@ type BookCardProps = {
     thumbnail: string;
   };
   page: string;
-  ownerUsername : string;
+  ownerUsername: string;
 };
 
 let booksPerRow = 4;
@@ -43,7 +43,7 @@ const BookCard = ({ isLoaded, book, page, ownerUsername }: BookCardProps) => {
           ? () =>
               navigation.navigate(
                 page === "explore" ? "Add a book" : "My book progress",
-                { book, ownerUsername }
+                { book, ownerUsername, page }
               )
           : null
       }
