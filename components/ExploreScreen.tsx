@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { Text, View, Button, StyleSheet } from "react-native";
 import ExploreSearchBar from "./ExploreSearchBar";
 import MainBooksContainer from "./MainBooksContainer";
 import axios from "axios";
+import { CameraView } from "expo-camera"; // Import CameraView for camera functionality
 import { API_KEY } from "@env";
 
 const ExploreScreen = () => {
@@ -10,6 +11,9 @@ const ExploreScreen = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [scanned, setScanned] = useState<boolean>(false);
+  const [facing, setFacing] = useState<CameraType>("back"); // Default camera facing
+  const [showCamera, setShowCamera] = useState<boolean>(false); // New state for controlling camera visibility
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -45,23 +49,75 @@ const ExploreScreen = () => {
     if (searchQuery) fetchBooks();
   }, [searchQuery]);
 
+  const handleBarcodeScanned = ({
+    type,
+    data,
+  }: {
+    type: string;
+    data: string;
+  }) => {
+    console.log(`Scanned type: ${type}, data: ${data}`);
+    setScanned(true);
+    setShowCamera(false);
+    setSearchQuery(data);
+  };
+
+  const handleScanButtonPress = () => {
+    setScanned(false);
+    setShowCamera(true);
+  };
+
   return (
-    <View>
+    <View style={styles.container}>
       <ExploreSearchBar
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
-      <View style={{ width: "100%", height: "100%" }}>
+      <Button title="Scan Barcode" onPress={handleScanButtonPress} />
+
+      {showCamera && (
+        <CameraView
+          style={styles.camera}
+          onBarcodeScanned={scanned ? undefined : handleBarcodeScanned}
+          barcodeScannerSettings={{
+            barcodeTypes: ["qr", "ean13", "upc_a"],
+          }}
+        />
+      )}
+
+      <View style={styles.booksContainer}>
         {isLoaded ? (
           <MainBooksContainer
             page={"explore"}
             books={books}
             isLoaded={isLoaded}
           />
-        ) : null}
+        ) : (
+          <Text>{error}</Text>
+        )}
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "flex-start",
+  },
+  topSection: {
+    paddingTop: 20,
+    paddingHorizontal: 10,
+    backgroundColor: "#f8f8f8",
+  },
+  camera: {
+    height: 300,
+    width: "100%",
+  },
+  booksContainer: {
+    flex: 1,
+    marginTop: 20,
+  },
+});
 
 export default ExploreScreen;
