@@ -26,7 +26,10 @@ const FriendScreen = ({ route }: any) => {
   return (
     <View style={{ width: "100%", height: "100%" }}>
       <View style={styles.usernameContainer}>
-        <Text style={styles.usernameText}>{friend.username}</Text>
+        <Text style={styles.subtitleText}>
+          You can borrow these books from{" "}
+          <Text style={styles.friendUsername}>{friend.username}</Text>!
+        </Text>
       </View>
       <View style={{ width: "100%", height: "100%" }}>
         {isLoaded ? (
@@ -57,6 +60,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "black",
+  },
+  subtitleText: {
+    color: "black",
+    textAlign: "center",
+    marginVertical: 10,
+  },
+  friendUsername: {
+    color: "#f17127",
+    textAlign: "center",
+    marginVertical: 10,
   },
 });
 
