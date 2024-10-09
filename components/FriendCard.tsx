@@ -17,7 +17,8 @@ const FriendCard = ({ friend, page, setUpdated } : any) => {
   const [isFriend, setIsFriend] = useState(false);
   const [isOutgoingFriendRequest, setIsOutgoingFriendRequest] = useState(false);
   const [isIncomingFriendRequest, setIsIncomingFriendRequest] = useState(false);
-
+  const [error, setError] = useState("")
+  const [removedFromList, setRemovedFromList] = useState(false)
   const navigation = useNavigation();
 
   useEffect(() => {

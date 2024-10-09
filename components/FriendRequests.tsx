@@ -7,21 +7,29 @@ import { UserContext } from "../contexts/UserContext";
 
 const FriendRequests = () => {
   const { user } = useContext(UserContext);
-  const [users, setUsers] = useState<any[]>([]);
+  const [friendRequests, setFriendRequests] = useState<any[]>([]);
   const [updated, setUpdated] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState(true)
+
   useEffect(() => {
     functions.getFriendRequests(user.username).then((request: any) => {
-      setUsers(request.data);
+      setFriendRequests(request.data);
+      setIsLoading(false)
     });
-  }, [updated]);
+  }, [])//[updated]);
+  
+  if(isLoading){
+    return (<View><Text style={styles.title}>...Loading friend request</Text></View>)
+  }
 
   return (
     <View>
       <View>
-        <Text>Friend requests:</Text>
+        <Text style={styles.title}>Friend requests</Text>
       </View>
+      {friendRequests.length===0 && <Text style={styles.text}>No request</Text>}
       <FlatList
-        data={users}
+        data={friendRequests}
         renderItem={({ item, index }) => (
           <FriendCard
             key={index}
@@ -40,6 +48,14 @@ const styles = StyleSheet.create({
   searchBar: {
     color: "black",
   },
+  title: {
+    fontSize : 30,
+    textAlign : "center",
+  },
+  text : {
+    fontSize : 18,
+    color: "gray"
+  }
 });
 
 export default FriendRequests;
