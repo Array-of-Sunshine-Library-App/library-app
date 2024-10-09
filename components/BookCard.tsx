@@ -54,7 +54,7 @@ const BookCard = ({ isLoaded, book, page, ownerUsername }: BookCardProps) => {
     <Pressable
       onPress={
         isLoaded
-          ? () => navigation.navigate(destination, { book, ownerUsername })
+          ? () => navigation.navigate(destination, { book, ownerUsername, page })
           : null
       }
     >
