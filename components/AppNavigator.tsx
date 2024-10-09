@@ -13,6 +13,7 @@ import MyBookDetails from "./MyBookDetails";
 import MyBookProgress from "./MyBookProgress";
 import FriendScreen from "./FriendScreen";
 import RegisterNewUser from "./RegisterNewUser";
+import LendingScreen from "./LendingScreen";
 const BottomTab = createBottomTabNavigator();
 
 const AppNavigator = () => {
@@ -219,6 +220,14 @@ const AppNavigator = () => {
         options={{
           tabBarButton: () => null,
           header: () => <AppHeader returnTo={"Friend List"} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Lending Screen"
+        component={LendingScreen}
+        options={{
+          tabBarButton: () => null,
+          header: () => <AppHeader returnTo={"Home"} />,
         }}
       />
     </BottomTab.Navigator>
