@@ -135,7 +135,9 @@ function deleteFriend(username: string, toDelete: string) {
 
 function getLendableFriends(username: string) {
   return axios
-    .get(`https://hosting-api-yiyu.onrender.com/api/users/${username}/books`)
+    .get(
+      `https://hosting-api-yiyu.onrender.com/api/users/${username}/books?lendable=true`
+    )
     .then((books) => {
       return books;
     });
@@ -194,6 +196,15 @@ function returnBookAfterBorrow(
     `https://hosting-api-yiyu.onrender.com/api/users/${borrowerUsername}/returnbook/${ownerUsername}/${bookId}`
   );
 }
+function getBorrowRequests(username: string, bookId: string) {
+  return axios
+    .get(
+      `https://hosting-api-yiyu.onrender.com/api/users/${username}/books/${bookId}/requestlist`
+    )
+    .then((books) => {
+      return books;
+    });
+}
 
 const functions = {
   getLibrary,
@@ -218,6 +229,7 @@ const functions = {
   deleteBookBorrowRequest,
   acceptBookBorrowRequest,
   returnBookAfterBorrow,
+  getBorrowRequests,
 };
 
 export default functions;
