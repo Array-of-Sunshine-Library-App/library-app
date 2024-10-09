@@ -16,7 +16,7 @@ const FriendList = () => {
       setFriends(request.data);
       setIsLoading(false)
     });
-  },  [])//[updated]);
+  }, [updated]);
   if(isLoading){
     return (<View><Text style={styles.title}>...Loading friends</Text></View>)
   }

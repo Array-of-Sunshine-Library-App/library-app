@@ -46,27 +46,48 @@ const FriendCard = ({ friend, page, setUpdated } : any) => {
   };
 
   const handleAcceptFriendRequest = () => {
+    setRemovedFromList(true)
     functions.acceptFriendRequest(user.username, friend).then(() => {
       setIsFriend(true);
       setIsIncomingFriendRequest(false);
       setUpdated(1);
-    });
+    })
+    .catch((err) => {
+      setError(err)
+      console.log("Error accepting friend request", err)
+      setRemovedFromList(false)
+    })
   };
 
   const handleDeclineFriendRequest = () => {
+    setRemovedFromList(true)
     functions.deleteFriendRequest(user.username, friend.username).then(() => {
       setIsIncomingFriendRequest(false);
       setUpdated(2);
-    });
+    })
+    .catch((err) => {
+      setError(err)
+      console.log("Error declining friend request ", err)
+      setRemovedFromList(false)
+    })
   };
 
   const handleDeleteFriend = () => {
+    setRemovedFromList(true)
     functions.deleteFriend(user.username, friend.username).then(() => {
       setIsFriend(false);
       setUpdated(3);
-    });
+      setRemovedFromList(true)
+    })
+    .catch((err) => {
+      setError(err)
+      console.log("Error deleting friend:", err)
+      setRemovedFromList(false)
+    })
   };
-
+if(removedFromList){
+  return (<></>)
+}
   return (
     <Pressable
       onPress={
