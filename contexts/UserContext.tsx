@@ -1,13 +1,9 @@
 import React, { createContext, useState } from "react";
 
-// type User{
-//     username : string;
-//     name : string;
-//     readingStats{
-//         booksRead : number;
-
-//     }
-// }
+type User ={
+    username : string;
+    name : string;
+}
 
 export const UserContext = createContext();
 

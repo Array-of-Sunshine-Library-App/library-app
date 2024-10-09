@@ -5,20 +5,20 @@ import functions from "../axiosRequests";
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 
-const FriendList = () => {
+const FriendList = ({updated, setUpdated} : any) => {
   const { user } = useContext(UserContext);
   const [friends, setFriends] = useState<any[]>([]);
-  const [isFriend, setIsFriend] = useState(false);
-  const [updated, setUpdated] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true)
+
   useEffect(() => {
+    setIsLoading(true)
     functions.getFriends(user.username).then((request: any) => {
       setFriends(request.data);
       setIsLoading(false)
     });
   }, [updated]);
   if(isLoading){
-    return (<View><Text style={styles.title}>...Loading friends</Text></View>)
+    return (<View><Text style={styles.loading}>...Loading friends</Text></View>)
   }
   return (
     <View style={{ width: "100%", height: "100%" }}>
@@ -31,7 +31,8 @@ const FriendList = () => {
             key={index}
             friend={item}
             page={"friend"}
-            setUpdated={setUpdated}
+            updated={updated}
+            setUpdated={updated}
           />
         )}
         numColumns={1}
@@ -45,12 +46,18 @@ const styles = StyleSheet.create({
     color: "black",
   },
   title: {
-    fontSize : 30,
+    fontSize : 18,
     textAlign : "center",
+    color: "grey",
   },
   text : {
-    fontSize : 18,
+    fontSize : 15,
     color : "gray"
+  },
+  loading : {
+    fontSize : 16,
+    color : "gray",
+    textAlign : "center",
   }
 });
 

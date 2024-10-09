@@ -55,11 +55,6 @@ const AddBookScreen = ({ route }: any) => {
       })
       .catch((err: any) => {
         setError("Error sending borrow request");
-        ///
-        // FIXME: CURRENTLY BACKEND RESPONDS WITH 500, SO WE'RE FAKING IT WORKING HERE
-        //setIsRequested(false);
-        //
-        //
       });
   };
 
@@ -85,10 +80,10 @@ const AddBookScreen = ({ route }: any) => {
           <>
             <View style={styles.requestToBorrowContainer}>
               <Pressable
-                style={styles.actionButton}
+                style={[styles.button, { backgroundColor: "grey" }]}
                 onPress={handleSendRequest}
               >
-                <Text style={styles.pressableText}>
+                <Text style={styles.buttonText}>
                   {isRequested ? "Requested!" : "Request to borrow"}
                 </Text>
               </Pressable>
@@ -110,6 +105,20 @@ const AddBookScreen = ({ route }: any) => {
 };
 
 const styles = StyleSheet.create({
+  button: {
+    margin: 10,
+    paddingVertical: 15,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 8,
+    width: "100%",
+  },
+
+  buttonText: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -134,13 +143,12 @@ const styles = StyleSheet.create({
   },
 
   requestToBorrowContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
     margin: 5,
     padding: 12,
     borderRadius: 5,
-    backgroundColor: "white",
   },
 });
 

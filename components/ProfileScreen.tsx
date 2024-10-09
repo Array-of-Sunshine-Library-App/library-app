@@ -135,13 +135,9 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: "bold",
     padding: 20,
-    fontFamily: "Georgia",
-    fontStyle: "italic",
   },
   text: {
     fontSize: 25,
-    fontFamily: "Georgia",
-    fontStyle: "italic",
     margin: 5,
     textAlign: "center",
   },
