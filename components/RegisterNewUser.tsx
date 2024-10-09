@@ -154,6 +154,7 @@ const styles = StyleSheet.create({
     margin: 5,
     fontSize: 20,
     fontWeight: "bold",
+    color : "gray",
     padding: 20,
     fontFamily: "Georgia",
     fontStyle: "italic",
