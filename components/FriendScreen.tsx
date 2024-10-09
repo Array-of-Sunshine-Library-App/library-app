@@ -10,6 +10,9 @@ const FriendScreen = ({ route }: any) => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   useEffect(() => {
+    setBooks([]);
+    setIsLoaded(false);
+
     functions
       .getLendableFriends(friend.username)
       .then((result) => {
@@ -19,7 +22,8 @@ const FriendScreen = ({ route }: any) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [friend.username]);
+
   return (
     <View style={{ width: "100%", height: "100%" }}>
       <View style={styles.usernameContainer}>
