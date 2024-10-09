@@ -205,6 +205,15 @@ function getBorrowRequests(username: string, bookId: string) {
       return books;
     });
 }
+function getAllBorrowRequests(username: string, bookId: string) {
+  return axios
+    .get(
+      `https://hosting-api-yiyu.onrender.com/api/users/${username}/requestborrow`
+    )
+    .then((books) => {
+      return books;
+    });
+}
 
 const functions = {
   getLibrary,
@@ -230,6 +239,7 @@ const functions = {
   acceptBookBorrowRequest,
   returnBookAfterBorrow,
   getBorrowRequests,
+  getAllBorrowRequests,
 };
 
 export default functions;
