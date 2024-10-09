@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import functions from "../axiosRequests";
 import { Text, View, StyleSheet } from "react-native";
 import MainBooksContainer from "./MainBooksContainer";
-//import StatBlock from "./StatBlock";
 
 const FriendScreen = ({ route }: any) => {
   const { friend } = route.params;
@@ -15,26 +14,16 @@ const FriendScreen = ({ route }: any) => {
 
     functions
       .getLendableFriends(friend.username)
-      .then((result) => 
-        setBooks(result.data);
+
+      .then((result) => {
+
+ setBooks(result.data);
         setIsLoaded(true);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [friend.username]);
-
-  //   functions
-  //     .getLibrary(friend.username)
-  //     .then((result) => {
-  //       console.log("!!! result.data:", result.data);
-  //       setBooks(result.data);
-  //       setIsLoaded(true);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, [friend.username]);
 
   return (
     <View style={{ width: "100%", height: "100%" }}>
