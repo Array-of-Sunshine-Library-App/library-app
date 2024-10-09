@@ -38,13 +38,11 @@ const FriendScreen = ({ route }: any) => {
   // }, [friend.username]);
 
   return (
-    <View style={{ width: "100%", height: "100%", backgroundColor: "green" }}>
-      <View style={[styles.usernameContainer, { backgroundColor: "yellow" }]}>
+    <View style={{ width: "100%", height: "100%" }}>
+      <View style={styles.usernameContainer}>
         <Text style={styles.usernameText}>{friend.username}</Text>
       </View>
-      <View
-        style={{ width: "100%", height: "100%", backgroundColor: "lightblue" }}
-      >
+      <View style={{ width: "100%", height: "100%" }}>
         {isLoaded ? (
           <MainBooksContainer
             page={"explore"}
