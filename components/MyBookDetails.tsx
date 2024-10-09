@@ -17,7 +17,7 @@ import { UserContext } from "../contexts/UserContext";
 import functions from "../axiosRequests";
 import { BookAddContext } from "../contexts/BookAddContext";
 
-const MyBookDetails = ({ route }:any) => {
+const MyBookDetails = ({ route }: any) => {
   const { book } = route.params;
   const { user } = useContext(UserContext);
   const { setAddBook } = useContext(BookAddContext);
@@ -72,6 +72,7 @@ const MyBookDetails = ({ route }:any) => {
   const handleDelete = () => {
     deleteLibraryBook(user.username, book.bookId)
       .then(() => {
+        setAddBook(null);
         setModalVisible(false);
         navigation.navigate("Library");
       })
