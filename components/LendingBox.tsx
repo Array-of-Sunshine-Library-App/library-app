@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Pressable, Text } from "react-native";
+import { ThemedButton } from "react-native-really-awesome-button";
 
 const LendingBox = ({ book }) => {
   const [currentlyBorrowing, setCurrentlyBorrowing] = useState(false);
@@ -33,28 +34,43 @@ const LendingBox = ({ book }) => {
         </Text>
       </View>
       {currentlyBorrowing ? (
-        <View style={styles.container}>
-          <Pressable
-            style={[styles.actionButton, { backgroundColor: "green" }]}
+        <View style={styles.returnContainer}>
+          <ThemedButton
+            style={styles.actionButton}
+            raiseLevel={1}
+            name="bruce"
+            type="secondary"
+            textColor="green"
+            borderColor="green"
             onPress={handleReturnBookAfterBorrow}
           >
-            <Text style={styles.pressableText}>I've got this book back</Text>
-          </Pressable>
+            I've got this book back
+          </ThemedButton>
         </View>
       ) : (
         <View style={styles.container}>
-          <Pressable
-            style={[styles.actionButton, { backgroundColor: "grey" }]}
+          <ThemedButton
+            raiseLevel={1}
+            width={130}
+            name="bruce"
+            type="secondary"
+            textColor="red"
+            borderColor="red"
             onPress={handleRejectBorrowRequest}
           >
-            <Text style={styles.pressableText}>Delete request</Text>
-          </Pressable>
-          <Pressable
-            style={[styles.actionButton, { backgroundColor: "green" }]}
+            Delete request
+          </ThemedButton>
+          <ThemedButton
+            raiseLevel={1}
+            width={130}
+            name="bruce"
+            type="secondary"
+            textColor="green"
+            borderColor="green"
             onPress={handleConfirmBorrowRequest}
           >
-            <Text style={styles.pressableText}>Confirm</Text>
-          </Pressable>
+            Confirm
+          </ThemedButton>
         </View>
       )}
     </View>
@@ -64,6 +80,13 @@ const LendingBox = ({ book }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 15,
+    width: "100%",
+  },
+  returnContainer: {
+    flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
     padding: 15,
@@ -81,8 +104,8 @@ const styles = StyleSheet.create({
   },
 
   actionButton: {
-    padding: 10,
-    borderRadius: 5,
+    flexDirection: "row",
+    justifyContent: "center",
   },
 
   pressableText: {

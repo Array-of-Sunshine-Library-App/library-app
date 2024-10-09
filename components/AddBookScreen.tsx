@@ -6,6 +6,7 @@ import axios from "axios";
 import { UserContext } from "../contexts/UserContext";
 import { BookAddContext } from "../contexts/BookAddContext";
 import functions from "../axiosRequests";
+import { ThemedButton } from "react-native-really-awesome-button";
 
 const AddBookScreen = ({ route }: any) => {
   const { book, ownerUsername } = route.params;
@@ -79,25 +80,39 @@ const AddBookScreen = ({ route }: any) => {
         {book.isLendable ? (
           <>
             <View style={styles.requestToBorrowContainer}>
-              <Pressable
-                style={[styles.button, { backgroundColor: "grey" }]}
+              <ThemedButton
+                raiseLevel={1}
+                name="bruce"
+                type="secondary"
+                textColor="#f17127"
+                borderColor="#f17127"
                 onPress={handleSendRequest}
               >
-                <Text style={styles.buttonText}>
-                  {isRequested ? "Requested!" : "Request to borrow"}
-                </Text>
-              </Pressable>
+                {isRequested ? "Requested!" : "Request to borrow"}
+              </ThemedButton>
             </View>
           </>
         ) : null}
 
         <View style={styles.container}>
-          <Pressable style={styles.actionButton} onPress={handleAddToWishlist}>
-            <Text style={styles.pressableText}>Add to Wishlist</Text>
-          </Pressable>
-          <Pressable style={styles.actionButton} onPress={handleAddToLibrary}>
-            <Text style={styles.pressableText}>Add to Library</Text>
-          </Pressable>
+          <ThemedButton
+            width={150}
+            raiseLevel={1}
+            name="bruce"
+            type="secondary"
+            onPress={handleAddToWishlist}
+          >
+            Add To Wishlist
+          </ThemedButton>
+          <ThemedButton
+            raiseLevel={1}
+            width={150}
+            type="secondary"
+            name="bruce"
+            onPress={handleAddToLibrary}
+          >
+            Add to Library
+          </ThemedButton>
         </View>
       </View>
     </ScrollView>

@@ -16,6 +16,7 @@ import { StyleSheet } from "react-native";
 import { UserContext } from "../contexts/UserContext";
 import functions from "../axiosRequests";
 import { BookAddContext } from "../contexts/BookAddContext";
+import { ThemedButton } from "react-native-really-awesome-button";
 
 const MyBookDetails = ({ route }: any) => {
   const { book } = route.params;
@@ -122,24 +123,38 @@ const MyBookDetails = ({ route }: any) => {
           onPress={() => setModalVisible(false)}
         />
         <View style={styles.modalContainer}>
-          <Pressable
-            style={[styles.button, { backgroundColor: "green" }]}
+          <ThemedButton
+            stretch={true}
+            textColor="green"
+            borderColor="green"
+            width={150}
+            raiseLevel={1}
+            name="bruce"
+            type="secondary"
             onPress={handleMoveToWishlist}
           >
-            <Text>Add this book to my wishlist</Text>
-          </Pressable>
-          <Pressable
-            style={[styles.button, { backgroundColor: "red" }]}
+            Add this book to my wishlist
+          </ThemedButton>
+          <ThemedButton
+            textColor="red"
+            stretch={true}
+            borderColor="red"
+            raiseLevel={1}
+            name="bruce"
+            type="secondary"
             onPress={handleDelete}
           >
-            <Text>Delete this book from my library</Text>
-          </Pressable>
-          <Pressable
-            style={[styles.button, { backgroundColor: "grey" }]}
+            Delete this book from my library
+          </ThemedButton>
+          <ThemedButton
+            stretch={true}
+            raiseLevel={1}
+            name="bruce"
+            type="secondary"
             onPress={() => setModalVisible(false)}
           >
-            <Text>Cancel</Text>
-          </Pressable>
+            Cancel
+          </ThemedButton>
         </View>
       </Modal>
       <BookBasicDetails book={book} />
@@ -213,9 +228,18 @@ const MyBookDetails = ({ route }: any) => {
         ) : null}
       </View>
       <View style={styles.section}>
-        <Pressable style={styles.button} onPress={handleSave}>
-          <Text style={styles.buttonText}>Save</Text>
-        </Pressable>
+        <ThemedButton
+          stretch={true}
+          textColor="green"
+          borderColor="green"
+          width={150}
+          raiseLevel={1}
+          name="bruce"
+          type="secondary"
+          onPress={handleSave}
+        >
+          Save
+        </ThemedButton>
       </View>
     </ScrollView>
   );

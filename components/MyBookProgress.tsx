@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import functions from "../axiosRequests";
 import { UserContext } from "../contexts/UserContext";
 import { BookAddContext } from "../contexts/BookAddContext";
+import { ThemedButton } from "react-native-really-awesome-button";
 
 const MyBookProgress = ({ route }: any) => {
   const { book, page } = route.params;
@@ -37,19 +38,26 @@ const MyBookProgress = ({ route }: any) => {
       <Text>{book.description}</Text>
       <View style={styles.container}>
         {page === "wishlist" ? (
-          <Pressable
+          <ThemedButton
+            style={styles.button}
             onPress={handleDelete}
-            style={[styles.button, { backgroundColor: "red" }]}
+            textColor="red"
+            borderColor="red"
+            raiseLevel={1}
+            name="bruce"
+            type="secondary"
           >
-            <Text style={styles.buttonText}>Delete from Wishlist</Text>
-          </Pressable>
+            Delete from Wishlist
+          </ThemedButton>
         ) : null}
-        <Pressable
-          style={[styles.button, { backgroundColor: "grey" }]}
+        <ThemedButton
+          raiseLevel={1}
+          name="bruce"
+          type="secondary"
           onPress={() => navigation.navigate("My book details", { book })}
         >
-          <Text style={styles.buttonText}>Book settings</Text>
-        </Pressable>
+          Book settings
+        </ThemedButton>
       </View>
     </ScrollView>
   );
@@ -65,11 +73,6 @@ const styles = StyleSheet.create({
 
   button: {
     margin: 10,
-    paddingVertical: 15,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 8,
-    width: "100%",
   },
 
   buttonText: {
