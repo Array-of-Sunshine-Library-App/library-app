@@ -6,30 +6,35 @@ import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { isEnabled } from "react-native/Libraries/Performance/Systrace";
 
-const FriendRequests = ({updated, setUpdated} : any) => {
+const FriendRequests = ({ updated, setUpdated }: any) => {
   const { user } = useContext(UserContext);
   const [friendRequests, setFriendRequests] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     functions.getFriendRequests(user.username).then((request: any) => {
       setFriendRequests(request.data);
-      setIsLoading(false)
+      setIsLoading(false);
     });
   }, [updated, user]);
-  
-  if(isLoading){
-    return (<View><Text style={styles.loading}>...Loading friend request</Text></View>)
+
+  if (isLoading) {
+    return (
+      <View>
+        <Text style={styles.loading}>...Loading friend request</Text>
+      </View>
+    );
   }
 
   return (
     <View>
       <View>
-        <Text style={styles.title}>Friend requests</Text>
+        <Text style={styles.title}>Friend requests:</Text>
       </View>
-      {friendRequests.length===0 && <Text style={styles.text}>No requests</Text>}
+      {friendRequests.length === 0 && (
+        <Text style={styles.text}>You have no new friend requests</Text>
+      )}
       <FlatList
         data={friendRequests}
         renderItem={({ item, index }) => (
@@ -39,9 +44,7 @@ const FriendRequests = ({updated, setUpdated} : any) => {
             page={"friendRequest"}
             updated={updated}
             setUpdated={setUpdated}
-
           />
-     
         )}
         numColumns={1}
       />
@@ -54,20 +57,21 @@ const styles = StyleSheet.create({
     color: "black",
   },
   title: {
-    fontSize : 18,
-    textAlign : "center",
+    fontSize: 20,
+    textAlign: "center",
     color: "grey",
-    
   },
-  text : {
-    fontSize : 15,
-    color: "gray"
+  text: {
+    fontSize: 15,
+    color: "gray",
+    textAlign: "center",
+    margin: 15,
   },
-  loading : {
-    fontSize : 16,
-    color : "gray",
-    textAlign : "center",
-  }
+  loading: {
+    fontSize: 16,
+    color: "gray",
+    textAlign: "center",
+  },
 });
 
 export default FriendRequests;
