@@ -15,8 +15,7 @@ const FriendScreen = ({ route }: any) => {
 
     functions
       .getLendableFriends(friend.username)
-      .then((result) => {
-        console.log("!!! result.data:", result.data);
+      .then((result) => 
         setBooks(result.data);
         setIsLoaded(true);
       })
