@@ -5,10 +5,25 @@ import LendingBox from "./LendingBox";
 
 const LendingScreen = ({ route }) => {
   const { book } = route.params;
+  const currentlyLent = !book.hasOwnProperty("requests");
+
   return (
     <View style={styles.page}>
       <BookBasicDetails book={book} />
-      <LendingBox book={book} />
+      {currentlyLent ? (
+        <LendingBox book={book} borrower={book.borrower} lent={true} />
+      ) : (
+        Object.keys(book.requests).map((borrower) => {
+          return (
+            <LendingBox
+              key={borrower}
+              book={book}
+              borrower={borrower}
+              lent={false}
+            />
+          );
+        })
+      )}
     </View>
   );
 };

@@ -5,9 +5,11 @@ import { UserContext } from "../contexts/UserContext";
 import BookShelf from "./BookShelf";
 import functions from "../axiosRequests";
 import { ScrollView } from "react-native";
+import { HomeUpdateContext } from "../contexts/HomeUpdateContext";
 
 const HomeScreen = () => {
   const { user } = useContext(UserContext);
+  const { homeUpdate } = useContext(HomeUpdateContext);
   const [booksBorrorwing, setBooksBorrowing] = useState([]);
   const [booksLending, setBooksLending] = useState([]);
   const [lendingRequests, setLendingRequests] = useState([]);
@@ -15,34 +17,30 @@ const HomeScreen = () => {
   let greeting = "";
 
   if (currentHour < 12) {
-    greeting = `Good morning, ${user.username}!`;
+    greeting = `Good morning, ${user.name}!`;
   } else if (currentHour < 18) {
-    greeting = `Good afternoon, ${user.username}!`;
+    greeting = `Good afternoon, ${user.name}!`;
   } else {
-    greeting = `Good evening, ${user.username}!`;
+    greeting = `Good evening, ${user.name}!`;
   }
 
   useEffect(() => {
     functions.getBorrowingList(user.username).then((response) => {
-      console.log(response);
       setBooksBorrowing(response);
     });
-  }, []);
+  }, [user, homeUpdate]);
 
   useEffect(() => {
     functions.getLendingList(user.username).then((response) => {
       setBooksLending(response);
     });
-  }, []);
+  }, [user, homeUpdate]);
 
   useEffect(() => {
-    //functions.FUNCTION-TO-GET-ALL-LENDING-REQUESTS(user.username).then((response) => {
-    //  setLendingRequests(response);
-    setLendingRequests([
-      { title: "book title", authors: ["Martin"], thumbnail: "n/a" }, //temp placeholder
-    ]);
-    // });
-  }, []);
+    functions.getAllBorrowRequests(user.username).then((response) => {
+      setLendingRequests(response);
+    });
+  }, [user, homeUpdate]);
 
   return (
     <ScrollView style={styles.page}>
