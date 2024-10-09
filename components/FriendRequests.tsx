@@ -13,7 +13,6 @@ const FriendRequests = ({updated, setUpdated} : any) => {
 
 
   useEffect(() => {
-    console.log(updated, "updated-> rendering RF")
     setIsLoading(true)
     functions.getFriendRequests(user.username).then((request: any) => {
       setFriendRequests(request.data);

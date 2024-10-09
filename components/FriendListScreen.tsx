@@ -7,14 +7,12 @@ import FriendList from "./FriendList";
 
 const FriendListScreen = () => {
   const [updated, setUpdated] = useState<number>(0);
-  const [friendRequests, setFriendRequests] = useState<any[]>([]);
   return (
     <View>
       <FriendSearchBar/>
       <View>
         
-        <FriendRequests updated={updated} setUpdated={setUpdated}
-        friendRequests={friendRequests} setFriendRequests={setFriendRequests}/>
+        <FriendRequests updated={updated} setUpdated={setUpdated}/>
         <FriendList updated={updated} setUpdated={setUpdated}/>
       </View>
     </View>

@@ -11,7 +11,6 @@ const FriendList = ({updated, setUpdated} : any) => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    console.log(updated, "rendering List")
     setIsLoading(true)
     functions.getFriends(user.username).then((request: any) => {
       setFriends(request.data);
