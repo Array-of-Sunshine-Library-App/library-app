@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
-const AppHeader = ({ returnTo } : any) => {
+const AppHeader = ({ returnTo }: any) => {
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -34,10 +34,12 @@ const AppHeader = ({ returnTo } : any) => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.headerContainer}>
-        <Image
-          source={require("../assets/Readshare-logo.png")}
-          style={styles.logoImage}
-        />
+        <Pressable onPress={() => navigation.navigate("Home")}>
+          <Image
+            source={require("../assets/Readshare-logo.png")}
+            style={styles.logoImage}
+          />
+        </Pressable>
         <Pressable
           style={[styles.profilePressable, { opacity: returnTo ? 1 : 0 }]}
           pointerEvents={returnTo ? "auto" : "none"}
@@ -108,12 +110,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   iconImage: {
-    width: 44,
-    height: 44,
+    width: 46,
+    height: 46,
     resizeMode: "contain",
   },
   logoImage: {
-    width: "55%",
+    width: 150,
     maxWidth: 250,
     height: "auto",
     aspectRatio: 200 / 75,
