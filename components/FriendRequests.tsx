@@ -27,7 +27,7 @@ const FriendRequests = () => {
       <View>
         <Text style={styles.title}>Friend requests</Text>
       </View>
-      {friendRequests.length===0 && <Text style={styles.text}>No request</Text>}
+      {friendRequests.length===0 && <Text style={styles.text}>No requests</Text>}
       <FlatList
         data={friendRequests}
         renderItem={({ item, index }) => (
