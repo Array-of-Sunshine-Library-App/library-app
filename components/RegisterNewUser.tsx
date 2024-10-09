@@ -37,7 +37,7 @@ const RegisterNewUser = () => {
     if (!inputUsername) {
       setIsEmptyField(true);
       setIsValidForm(false);
-    } else if (!/^[A-Za-z0-9]+$/g.test(inputUsername)) {
+    } else if (!/^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/.test(inputUsername)) {
       setIsValidForm(false);
       setInputUsername("");
     }
@@ -107,7 +107,7 @@ const RegisterNewUser = () => {
             <Text style={styles.text}> Enter Username:</Text>
             <TextInput
               style={styles.inputText}
-              placeholder="here..."
+              placeholder="email-> example@library.com"
               value={inputUsername}
               onChangeText={(newUsername) => setInputUsername(newUsername)}
             />
@@ -148,10 +148,11 @@ const styles = StyleSheet.create({
     height: 90,
     margin: 10,
     textAlign: "center",
+    padding : 5,
   },
   title: {
     margin: 5,
-    fontSize: 40,
+    fontSize: 20,
     fontWeight: "bold",
     padding: 20,
     fontFamily: "Georgia",
@@ -159,7 +160,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   text: {
-    fontSize: 30,
+    fontSize: 18,
     fontFamily: "Georgia",
     fontStyle: "italic",
     margin: 5,
@@ -167,15 +168,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   textError: {
-    fontSize: 20,
+    fontSize: 16,
     margin: 5,
     color: "red",
   },
   inputText: {
     margin: 5,
     width: 300,
-    height: 60,
-    fontSize: 25,
+    height: 45,
+    fontSize: 18,
     borderColor: "gray",
     borderWidth: 1,
   },
