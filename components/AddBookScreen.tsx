@@ -15,6 +15,10 @@ const AddBookScreen = ({ route }: any) => {
 
   const [isRequested, setIsRequested] = useState(false);
 
+  useEffect(() => {
+    setIsRequested(false);
+  }, [book]);
+
   const { setAddBook } = useContext(BookAddContext);
 
   const navigation = useNavigation();
@@ -43,6 +47,7 @@ const AddBookScreen = ({ route }: any) => {
   };
 
   const handleSendRequest = () => {
+    console.log(user.username, book.bookId, ownerUsername);
     functions
       .postBookBorrowRequest(user.username, book.bookId, ownerUsername)
       .then((response: any) => {
@@ -52,7 +57,7 @@ const AddBookScreen = ({ route }: any) => {
         setError("Error sending borrow request");
         ///
         // FIXME: CURRENTLY BACKEND RESPONDS WITH 500, SO WE'RE FAKING IT WORKING HERE
-        setIsRequested(true);
+        //setIsRequested(false);
         //
         //
       });

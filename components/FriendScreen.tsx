@@ -15,8 +15,7 @@ const FriendScreen = ({ route }: any) => {
 
     functions
       .getLendableFriends(friend.username)
-      .then((result) => {
-        console.log(result.data);
+      .then((result) => 
         setBooks(result.data);
         setIsLoaded(true);
       })
@@ -24,6 +23,18 @@ const FriendScreen = ({ route }: any) => {
         console.log(err);
       });
   }, [friend.username]);
+
+  //   functions
+  //     .getLibrary(friend.username)
+  //     .then((result) => {
+  //       console.log("!!! result.data:", result.data);
+  //       setBooks(result.data);
+  //       setIsLoaded(true);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, [friend.username]);
 
   return (
     <View style={{ width: "100%", height: "100%" }}>
