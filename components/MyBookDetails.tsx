@@ -256,7 +256,8 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   section: {
-    marginVertical: 10,
+    marginVertical: -5,
+    marginBottom: 30,
   },
   textInput: {
     borderWidth: 1,

@@ -12,6 +12,7 @@ const FloatingAddButton = () => {
         color="green"
         size="large"
         visible={true}
+        style={styles.fabStyle}
         onPress={() => navigation.navigate("Explore")}
       />
     </View>
@@ -23,6 +24,14 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 20,
     right: 15,
+  },
+
+  fabStyle: {
+    elevation: 15,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 1,
+    shadowRadius: 6,
   },
 });
 
